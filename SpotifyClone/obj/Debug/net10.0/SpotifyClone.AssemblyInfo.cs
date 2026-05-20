@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SpotifyClone")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+84d5f024335a6b9a552aa85e90e0bb594daea89a")]
 [assembly: System.Reflection.AssemblyProductAttribute("SpotifyClone")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SpotifyClone")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
