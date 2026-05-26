@@ -1,0 +1,28 @@
+@startuml
+
+class Client {
+
+}
+
+class Song {
+    - _title: string
+    + Title: _title
+}
+
+class User {
+    - _name: string
+    + Name: _name
+}
+
+class Playlist {
+
+}
+
+class Album {
+
+} 
+
+class Artist {
+}
+
+@enduml
