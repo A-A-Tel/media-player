@@ -6,31 +6,35 @@ class Client {
 }
 
 class Song {
-    - _songId: int
-    + SongId: _songId
     - _title: string
     + Title: _title
     - _artist: Artist
-    - _length: double
+    - _duration: double
 }
 
 class User {
-    - _userId: int
-    + UserId: _userId
     - _name: string
     + Name: _name
+    + Playlist: Playlist
 }
 
 class Playlist {
-    
+    - _name: string
+    - _songAmount: int
+    - _duration: double
 }
 
 class Album {
-    
+    - _artist: Artist
+    - _name: string
+    - _songAmount: int
+    - _duration: double
 } 
 
 class Artist {
-    
+    - _name: string
+    - _albums: Album
+    - _songs: Song
 }
 
 @enduml
