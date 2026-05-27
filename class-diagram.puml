@@ -51,6 +51,8 @@ class Song {
 class User {
     - _name: string
     + Name: _name
+    - _friends: int
+    + Friends: _friends
     - _playlist: Playlist
 }
 
@@ -58,9 +60,18 @@ class Playlist {
     - _title: string
     + Title: _title
     - _songAmount: int
+    - _songList: int
+    + SongList: _songList
     - _duration: double
     + Duration: _duration
     - _releaseDate: string
+    + Shuffle()
+    + Play()
+    + Stop()
+    + Add(Song)
+    + Remove(Song)
+    + Rename(newName)
+    
 }
 
 class Album {
@@ -68,6 +79,8 @@ class Album {
     - _title: string
     + Title: _title
     - _songAmount: int
+    - _songList: int
+    + SongList: _songList
     - _duration: double
     + Duration: _duration
     - _genre: string
