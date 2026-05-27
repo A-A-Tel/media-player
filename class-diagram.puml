@@ -1,8 +1,41 @@
 @startuml
 
+enum ClientState {
+    MainUserSelect
+    GeneralSelect
+    FriendSelect
+    Stopped
+}
+
 class Client {
-    + Stop()
-    + Play()
+    - _mainUser: User
+    - _currentSong: Song
+    - _player: SoundPlayer
+    - _queue: Queue<Song>
+    - _state: ClientState
+    
+    + Start()
+    
+    ' commands
+    - AppendQueue(song: Song): void
+    - PlaySong(): void
+    - SkipSong(): void
+    - TogglePause(): void
+    - StopPlayer(): void
+    
+    ' state
+    - MainUserSelect(): void
+    - GeneralSelect(): void
+    - FriendSelect():  void
+    
+    ' menus
+    - SongSelectMenu(): Song
+    - UserSelectMenu(): User
+    - PlaylistSelectMenu(user: User): Playlist
+    
+    ' helpers
+    - ClearTerminal(): void
+    - Input(allowedChar: char[1..*]): char
 }
 
 class Song {
