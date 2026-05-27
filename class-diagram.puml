@@ -45,6 +45,7 @@ class Song {
     - _duration: double
     + Duration: _duration
     - _genre: string
+    - _releaseDate: string
 }
 
 class User {
@@ -59,6 +60,7 @@ class Playlist {
     - _songAmount: int
     - _duration: double
     + Duration: _duration
+    - _releaseDate: string
 }
 
 class Album {
@@ -69,6 +71,7 @@ class Album {
     - _duration: double
     + Duration: _duration
     - _genre: string
+    - _releaseDate: string
 } 
 
 class Artist {
