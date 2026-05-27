@@ -1,28 +1,36 @@
 @startuml
 
 class Client {
-
+    + Stop()
+    + Play()
 }
 
 class Song {
+    - _songId: int
+    + SongId: _songId
     - _title: string
     + Title: _title
+    - _artist: Artist
+    - _length: double
 }
 
 class User {
+    - _userId: int
+    + UserId: _userId
     - _name: string
     + Name: _name
 }
 
 class Playlist {
-
+    
 }
 
 class Album {
-
+    
 } 
 
 class Artist {
+    
 }
 
 @enduml
