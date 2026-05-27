@@ -10,29 +10,37 @@ class Song {
     + Title: _title
     - _artist: Artist
     - _duration: double
+    + Duration: _duration
+    - _genre: string
 }
 
 class User {
     - _name: string
     + Name: _name
-    + Playlist: Playlist
+    - _playlist: Playlist
 }
 
 class Playlist {
-    - _name: string
+    - _title: string
+    + Title: _title
     - _songAmount: int
     - _duration: double
+    + Duration: _duration
 }
 
 class Album {
     - _artist: Artist
-    - _name: string
+    - _title: string
+    + Title: _title
     - _songAmount: int
     - _duration: double
+    + Duration: _duration
+    - _genre: string
 } 
 
 class Artist {
     - _name: string
+    + Name: _name
     - _albums: Album
     - _songs: Song
 }
