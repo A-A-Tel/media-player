@@ -57,35 +57,26 @@ class User {
 }
 
 class Playlist {
-    - _title: string
-    + Title: _title
-    - _songAmount: int
-    - _songList: int
-    + SongList: _songList
-    - _duration: double
-    + Duration: _duration
-    - _releaseDate: string
     + Shuffle()
     + Play()
     + Stop()
     + Add(Song)
     + Remove(Song)
     + Rename(newName)
-    
+}
+
+class SongCollection {
+    - _title: string
+    - _songAmount: int
+    - _songList: list
+    - _duration: double
+    - _releaseDate: string
 }
 
 class Album {
     - _artist: Artist
-    - _title: string
-    + Title: _title
-    - _songAmount: int
-    - _songList: int
-    + SongList: _songList
-    - _duration: double
-    + Duration: _duration
     - _genre: string
-    - _releaseDate: string
-} 
+}
 
 class Artist {
     - _name: string
