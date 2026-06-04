@@ -3,7 +3,7 @@ namespace SpotifyClone.Entities
     public class Song
     {
         public string Title { get; private set; }
-        public Artist artist { get; private set; }
+        public Artist Artist { get; private set; }
         public double Duration { get; private set; }
         public string Genre { get; private set; }
         public string ReleaseDate { get; private set; }
