@@ -41,19 +41,19 @@ class Client {
 class Song {
     - _title: string
     + Title: _title
-    - _artist: Artist
+    - _artist: List (Artist)
     - _duration: double
     + Duration: _duration
-    - _genre: string
+    - _genre: List (String)
     - _releaseDate: string
 }
 
 class User {
     - _name: string
     + Name: _name
-    - _friends: int
+    - _friends: List (User)
     + Friends: _friends
-    - _playlist: Playlist
+    - _playlist: List (Playlist)
 }
 
 class Playlist {
@@ -68,21 +68,28 @@ class Playlist {
 class SongCollection {
     - _title: string
     - _songAmount: int
-    - _songList: list
+    - _songList: List (Song)
     - _duration: double
     - _releaseDate: string
 }
 
 class Album {
-    - _artist: Artist
-    - _genre: string
+    - _artist: List (Artist)
+    - _genre: List (String)
 }
 
 class Artist {
     - _name: string
     + Name: _name
-    - _albums: Album
-    - _songs: Song
+    - _albums: List (Album)
+    - _songs: List (Song)
 }
-
+Artist "*" -- "*" Album
+Artist "*" -- "*" Song
+SongCollection <|-- Album
+SongCollection <|-- Playlist
+Album "1" o-- "*" Song
+Playlist "*" o-- "*" Song
+User "1" o-- "*" Playlist
+Client *-- ClientState
 @enduml
