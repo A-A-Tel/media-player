@@ -19,11 +19,24 @@ namespace SpotifyClone
 
             Client client = new Client();
 
-            client.SongSelectMenu(songs);
+            Console.WriteLine("Welcome to Spotify!");
+            Console.WriteLine("Type a command:");
+           
 
-            Console.WriteLine();
+            string command = Console.ReadLine();
 
-            client.ShowArtists(artists);
+            if (command == "nummers")
+            {
+                client.SongSelectMenu(songs);
+            }
+            else if (command == "artiesten")
+            {
+                client.ShowArtists(artists);
+            }
+            else
+            {
+                Console.WriteLine("Unknown command");
+            }
         }
     }
 }

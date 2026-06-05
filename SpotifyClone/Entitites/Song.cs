@@ -16,10 +16,7 @@ namespace SpotifyClone.Entities
             Genre = genre;
             ReleaseDate = releaseDate;
         }
-
-        public Song(string title)
-        {
-            Title = title;
-        }
+        
+        
     }
 }
