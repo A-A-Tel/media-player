@@ -12,6 +12,12 @@ namespace SpotifyClone
             {
                 Console.WriteLine(song.Title);
             }
+            Console.WriteLine();
+            Console.WriteLine("Type a song name:");
+
+            string songName = Console.ReadLine();
+
+            Console.WriteLine("You selected: " + songName);
         }
         public void ShowArtists(List<Artist> artists)
         {
@@ -21,6 +27,12 @@ namespace SpotifyClone
             {
                 Console.WriteLine(artist.Name);
             }
+            Console.WriteLine();
+            Console.WriteLine("Type an artist name:");
+
+            string artistName = Console.ReadLine();
+
+            Console.WriteLine("You selected: " + artistName);
         }
     }
 }

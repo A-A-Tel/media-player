@@ -21,7 +21,7 @@ namespace SpotifyClone
 
             Console.WriteLine("Welcome to Spotify!");
             Console.WriteLine("Type a command:");
-           
+
 
             string command = Console.ReadLine();
 
