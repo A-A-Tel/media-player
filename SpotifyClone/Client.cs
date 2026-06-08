@@ -126,7 +126,7 @@ public class Client
         do {
             Console.WriteLine(input == '⠀' ? "Kies 1 van de opties... " : "Fout, probeer het opnieuw... ");
             input = Console.ReadKey().KeyChar;
-        } while (!allowedChars.Contains(input));
+        } while (!allowedChars.Contains(char.ToLower(input)));
 
         return input;
     }
