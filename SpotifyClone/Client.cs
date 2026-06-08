@@ -30,7 +30,7 @@ public class Client
                 if (keuze >= 1 && keuze <= _users.Count)
                 {
                     User gekozen = _users[keuze - 1];
-                    Console.WriteLine($"Hallo {gekozen.Name}");
+                    Console.WriteLine($"U bent ingelogd als {gekozen.Name}");
                     beantwoord = true;
                 }
                 else
@@ -43,6 +43,7 @@ public class Client
             string keuze2 = Console.ReadLine();
             if (keuze2 == "1")
             {
+                Console.WriteLine("U bent uitgelogd");
                 break;
             }
         }
