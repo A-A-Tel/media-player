@@ -15,31 +15,44 @@ public class Client
 
     public void Start()
     {
+        while (_state != ClientState.Stopped)
+            switch (_state)
+            {
+                case ClientState.MainUserSelect:
+                    MainUserSelect();
+                    break;
+                case ClientState.GeneralSelect:
+                    GeneralSelect();
+                    break;
+                case ClientState.FriendSelect:
+                    FriendSelect();
+                    break;
+            }
     }
 
     #region Actions
     
-    public void AppendQueue(Song song)
+    private void AppendQueue(Song song)
     {
         throw new NotImplementedException();
     }
 
-    public void PlaySong(Song song)
+    private void PlaySong(Song song)
     {
         throw new NotImplementedException();
     }
 
-    public void SkipSong()
+    private void SkipSong()
     {
         throw new NotImplementedException();
     }
 
-    public void TogglePause()
+    private void TogglePause()
     {
         throw new NotImplementedException();
     }
 
-    public void StopPlayer()
+    private void StopPlayer()
     {
         throw new NotImplementedException();
     }
@@ -48,17 +61,32 @@ public class Client
 
     #region State
 
-    public void MainUserSelect()
+    private void MainUserSelect()
     {
         throw new NotImplementedException();
     }
 
-    public void GeneralSelect()
+    private void GeneralSelect()
     {
-        Console.WriteLine($"Welcome {_mainUser.Name}");
+        FlushTerminal();
+        
+        Console.WriteLine($"Welkom {_mainUser.Name}!");
+        Console.WriteLine("[a] Commando 1 - Goed");
+        Console.WriteLine("[b] Commando 2 - Fout");
+        char input = Input('a', 'b');
+
+        switch (input)
+        {
+            case 'a':
+                Console.WriteLine("(Correcte output)");
+                break;
+            case 'b':
+                Console.WriteLine("(Foute output)");
+                break;
+        }
     }
 
-    public void FriendSelect()
+    private void FriendSelect()
     {
         throw new NotImplementedException();
     }
@@ -67,17 +95,17 @@ public class Client
 
     #region ActionMenus
 
-    public Song SongSelectMenu()
+    private Song SongSelectMenu()
     {
         throw new NotImplementedException();
     }
 
-    public User UserSelectMenu()
+    private User UserSelectMenu()
     {
         throw new NotImplementedException();
     }
 
-    public Playlist PlaylistSelectMenu()
+    private Playlist PlaylistSelectMenu()
     {
         throw new NotImplementedException();
     }
@@ -86,14 +114,21 @@ public class Client
 
     #region Helpers
 
-    public void FlushTerminal()
+    private void FlushTerminal()
     {
         Console.Clear();
     }
 
-    public char Input(params char[] allowedChars)
+    private char Input(params char[] allowedChars)
     {
-        throw new NotImplementedException();
+        char input = '⠀';
+
+        do {
+            Console.WriteLine(input == '⠀' ? "Kies 1 van de opties... " : "Fout, probeer het opnieuw... ");
+            input = Console.ReadKey().KeyChar;
+        } while (!allowedChars.Contains(input));
+
+        return input;
     }
 
     #endregion
