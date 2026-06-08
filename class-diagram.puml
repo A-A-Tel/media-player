@@ -1,95 +1,116 @@
 @startuml
+left to right direction
 
-enum ClientState {
-    MainUserSelect
-    GeneralSelect
-    FriendSelect
-    Stopped
-}
+namespace MediaPlayer {
 
-class Client {
-    - _mainUser: User
-    - _currentSong: Song
-    - _player: SoundPlayer
-    - _queue: Queue<Song>
-    - _state: ClientState
+    enum ClientState {
+        MainUserSelect
+        GeneralSelect
+        FriendSelect
+    }
     
-    + Start()
+    class Client {
+        - _mainUser: User
+        - _currentSong: Song
+        - _player: SoundPlayer
+        - _queue: Queue<Song>
+        - _state: ClientState
+        
+        + Start()
+        
+        ' commands
+        - AppendQueue(song: Song): void
+        - PlaySong(song: Song): void
+        - SkipSong(): void
+        - TogglePause(): void
+        - StopPlayer(): void
+        
+        ' state
+        - MainUserSelect(): void
+        - GeneralSelect(): void
+        - FriendSelect():  void
+        
+        ' menus
+        - SongSelectMenu(): Song
+        - UserSelectMenu(): User
+        - PlaylistSelectMenu(user: User): Playlist
+        
+        ' helpers
+        - FlushTerminal(): void
+        - Input(allowedChars: char[1..*]): char
+    }
     
-    ' commands
-    - AppendQueue(song: Song): void
-    - PlaySong(): void
-    - SkipSong(): void
-    - TogglePause(): void
-    - StopPlayer(): void
+    namespace Entities {
     
-    ' state
-    - MainUserSelect(): void
-    - GeneralSelect(): void
-    - FriendSelect():  void
-    
-    ' menus
-    - SongSelectMenu(): Song
-    - UserSelectMenu(): User
-    - PlaylistSelectMenu(user: User): Playlist
-    
-    ' helpers
-    - ClearTerminal(): void
-    - Input(allowedChar: char[1..*]): char
+        class Song {
+            - _name: string
+            - _artists: List<Artist>
+            - _duration: double
+            - _releaseDate: Date
+            + Name: _name
+            + Artists: _artist
+            + Duration: _duration
+            
+            + GetAllSongs(): List<Song> {static}
+        }
+            
+        class User {
+            - _name: string
+            - _friends: List<User>
+            - _playlists: List<Playlist>
+            + Name: _name
+            + Friends: _friends
+            + Playlists: _playlists
+            
+            + GetAllUsers(): List<User> {static}
+        }
+        
+        class Playlist {
+            - _name: string
+            - _songs: List<Song>
+            + Name: _name
+            + Songs: _songs
+            
+            + Add(song: Song)
+            + Remove(index: int)
+            + Rename(newName: string)
+        }
+        
+        class Album {
+            - _name: string
+            - _artists: List<Artist>
+            - _songs: List<Song>
+            + Name: _name
+            + Artists: _artists
+            + Songs: _songs
+            
+            + GetAllAlbums(): List<Album> {static}
+        }
+        
+        class Artist {
+            - _name: string
+            - _albums: List<Album>
+            - _songs: List<Song>
+            + Albums: _albums
+            + Songs: _songs
+            + Name: _name
+        }
+    }
 }
 
-class Song {
-    - _title: string
-    + Title: _title
-    - _artist: List (Artist)
-    - _duration: double
-    + Duration: _duration
-    - _genre: List (String)
-    - _releaseDate: string
-}
+Client --> User : mainUser
+Client --> Song : currentSong
+Client --> "0..*" Song : queue
+Client --> ClientState : state
 
-class User {
-    - _name: string
-    + Name: _name
-    - _friends: List (User)
-    + Friends: _friends
-    - _playlist: List (Playlist)
-}
+User o-- "0..*" Playlist : playlists
+User --> "0..*" User : friends
 
-class Playlist {
-    + Shuffle()
-    + Play()
-    + Stop()
-    + Add(Song)
-    + Remove(Song)
-    + Rename(newName)
-}
+Album --> "1..*" Song : songs
+Album -- "1..*" Artist : artists
 
-class SongCollection {
-    - _title: string
-    - _songAmount: int
-    - _songList: List (Song)
-    - _duration: double
-    - _releaseDate: string
-}
+Playlist --> "0..*" Song : songs
 
-class Album {
-    - _artist: List (Artist)
-    - _genre: List (String)
-}
+Song -- "1..*" Artist : artists
 
-class Artist {
-    - _name: string
-    + Name: _name
-    - _albums: List (Album)
-    - _songs: List (Song)
-}
-Artist "*" -- "*" Album
-Artist "*" -- "*" Song
-SongCollection <|-- Album
-SongCollection <|-- Playlist
-Album "1" o-- "*" Song
-Playlist "*" o-- "*" Song
-User "1" o-- "*" Playlist
-Client *-- ClientState
 @enduml
