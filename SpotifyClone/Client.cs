@@ -37,9 +37,10 @@ public class Client
                     Console.WriteLine("Geen geldig antwoord");
                 }
             }
-            Console.WriteLine("Typ 'Uit' om uit te loggen ");
+            Console.WriteLine("Luisteren [1]");
+            Console.WriteLine("Uitloggen [2]");
             string keuze2 = Console.ReadLine();
-            if (keuze2 != "uit")
+            if (keuze2 == "1")
             {
                 break;
             }
