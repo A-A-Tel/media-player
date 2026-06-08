@@ -10,6 +10,11 @@ namespace MediaPlayer {
         Stopped
     }
     
+    struct CommandEntry {
+        + Key: char
+        + Description: string
+    }
+    
     class Client {
         - _mainUser: User
         - _currentSong: Song
@@ -39,7 +44,9 @@ namespace MediaPlayer {
         
         ' helpers
         - FlushTerminal(): void
-        - Input(allowedChars: char[1..*]): char
+        - Input(entries: CommandEntry[1..*]): char
+        - Input(items: List<T>): int
+        - ClearLine(): void
     }
     
     namespace Entities {

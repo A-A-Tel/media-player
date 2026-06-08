@@ -68,22 +68,22 @@ public class Client
 
     private void GeneralSelect()
     {
-        FlushTerminal();
         
-        Console.WriteLine($"Welkom {_mainUser.Name}!");
-        Console.WriteLine("[a] Commando 1 - Goed");
-        Console.WriteLine("[b] Commando 2 - Fout");
-        char input = Input('a', 'b');
+        char input = Input(
+            new CommandEntry('g', "Dit is een goede optie!"),
+            new CommandEntry('s', "Dit is een slechte optie,")
+        );
 
         switch (input)
         {
-            case 'a':
-                Console.WriteLine("(Correcte output)");
+            case 'g':
+                Console.WriteLine("Goed resultaat");
                 break;
-            case 'b':
-                Console.WriteLine("(Foute output)");
+            case 's':
+                Console.WriteLine("Slecht resultaat");
                 break;
         }
+        
     }
 
     private void FriendSelect()
@@ -119,17 +119,49 @@ public class Client
         Console.Clear();
     }
 
-    private char Input(params char[] allowedChars)
+    private char Input(params CommandEntry[] entries)
     {
-        char input = '⠀';
+        foreach (CommandEntry entry in entries)
+            Console.WriteLine("[" + char.ToString(entry.Key) + "] - " + entry.Description);
 
-        do {
-            Console.WriteLine(input == '⠀' ? "Kies 1 van de opties... " : "Fout, probeer het opnieuw... ");
+        char input;
+        do
+        {
+            Console.WriteLine("Kies een geldige optie...");
             input = Console.ReadKey().KeyChar;
-        } while (!allowedChars.Contains(char.ToLower(input)));
+            ClearLine();
+        } while (!entries.Select(e => e.Key).Contains(input));
 
         return input;
     }
+
+    private int Input(List<object> items)
+    {
+        for (int i = 0; i < items.Count; i++)
+            Console.WriteLine("[" + i + "] - " + items[i]);
+
+        int input;
+        do
+        {
+            Console.WriteLine("Kies een geldige optie...");
+            if (!int.TryParse(Console.ReadLine(), out input))
+            {
+                input = -1;
+            }
+            ClearLine();
+        } while (input < 0 || input >= items.Count);
+        
+        return input;
+    }
+    
+    private static void ClearLine()
+    {
+        int currentLineCursor = Console.CursorTop;
+        Console.SetCursorPosition(0, Console.CursorTop);
+        Console.Write(new string(' ', Console.WindowWidth)); 
+        Console.SetCursorPosition(0, currentLineCursor);
+    }
+
 
     #endregion
 }
