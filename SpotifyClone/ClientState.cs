@@ -3,6 +3,8 @@
 public class Client
 {
     
+    private User _mainUser;
+    private ClientState _state;
     
     private List<User> _users = new List<User>
     {
