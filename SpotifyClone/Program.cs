@@ -6,6 +6,6 @@ public class Program
     {
         Console.WriteLine("Hallo world");
         Client client = new Client();
-        client.selectie();
+        client.MainUserSelect();
     }
 }

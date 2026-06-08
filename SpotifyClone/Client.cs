@@ -2,12 +2,47 @@
 
 public class Client
 {
-    public void selectie()
+    
+    private List<User> _users = new List<User>
     {
-        Console.WriteLine("Kies de hoofdgebruiker!");
+        new User("Jan"),
+        new User("Jan2"),
+        new User("Jan3"),
+        new User("Jan4")
+    };
+    public void MainUserSelect()
+    {
+        while (true)
+        {
+            bool beantwoord = false;
+            while (beantwoord == false)
+            {
+                Console.WriteLine("Kies de hoofdgebruiker!");
+                for (int i = 0; i < _users.Count; i++)
+                {
+                    Console.WriteLine($"{_users[i].Name} [{i + 1}]");
+                }
+            
+                string invoer = Console.ReadLine();
+                int keuze = int.Parse(invoer);
 
-        Console.WriteLine("[1] Jan");
-        Console.WriteLine("[2] Jan2");
-        Console.WriteLine("[3] Jan3");
+                if (keuze >= 1 && keuze <= _users.Count)
+                {
+                    User gekozen = _users[keuze - 1];
+                    Console.WriteLine($"Hallo {gekozen.Name}");
+                    beantwoord = true;
+                }
+                else
+                {
+                    Console.WriteLine("Geen geldig antwoord");
+                }
+            }
+            Console.WriteLine("Typ 'Uit' om uit te loggen ");
+            string keuze2 = Console.ReadLine();
+            if (keuze2 != "uit")
+            {
+                break;
+            }
+        }
     }
 }
