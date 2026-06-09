@@ -18,7 +18,6 @@ public class Client
         while (_state != ClientState.Stopped)
             switch (_state)
             {
-<<<<<<< Updated upstream
                 case ClientState.MainUserSelect:
                     MainUserSelect();
                     break;
@@ -28,9 +27,6 @@ public class Client
                 case ClientState.FriendSelect:
                     FriendSelect();
                     break;
-=======
-                Console.WriteLine(song.Name);
->>>>>>> Stashed changes
             }
     }
 
@@ -74,17 +70,18 @@ public class Client
     {
         
         char input = Input(
-            new CommandEntry('g', "Dit is een goede optie!"),
-            new CommandEntry('s', "Dit is een slechte optie,")
+            new CommandEntry('s', "Laat alle nummers zien"),
+            new CommandEntry('a', "Laat alle artiesten zien")
         );
 
         switch (input)
         {
-            case 'g':
-                Console.WriteLine("Goed resultaat");
-                break;
+           
             case 's':
-                Console.WriteLine("Slecht resultaat");
+                SongSelectMenu();
+                break;
+            case 'a':
+                ArtistSelectMenu();
                 break;
         }
         
@@ -101,8 +98,26 @@ public class Client
 
     private Song SongSelectMenu()
     {
-        throw new NotImplementedException();
+        List<Song> songs = Song.GetAllSongs();
+        foreach (Song song in songs)
+        {
+            Console.WriteLine(song);
+        }
+
+        return null!;
     }
+    private Artist ArtistSelectMenu()
+    {
+        List<Artist> artists = Artist.GetAllArtists();
+       foreach (Artist artist in artists)
+       {  
+            Console.WriteLine(artist); 
+       }
+
+
+        return null!;
+    }
+
 
     private User UserSelectMenu()
     {
