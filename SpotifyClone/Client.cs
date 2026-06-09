@@ -18,6 +18,7 @@ public class Client
         while (_state != ClientState.Stopped)
             switch (_state)
             {
+<<<<<<< Updated upstream
                 case ClientState.MainUserSelect:
                     MainUserSelect();
                     break;
@@ -27,6 +28,9 @@ public class Client
                 case ClientState.FriendSelect:
                     FriendSelect();
                     break;
+=======
+                Console.WriteLine(song.Name);
+>>>>>>> Stashed changes
             }
     }
 
