@@ -72,6 +72,7 @@ public class Client
 
     private void GeneralSelect()
     {
+        Console.WriteLine("Welkom " + _mainUser);
         char input = Input(
             new CommandEntry('g', "Uitloggen"),
             new CommandEntry('s', "Doorgaan")
@@ -81,7 +82,7 @@ public class Client
         {
             case 'g':
                 Console.WriteLine("Uitgelogd!");
-                _mainUser = UserSelectMenu();
+                _state = ClientState.MainUserSelect;
                 break;
             case 's':
                 Console.WriteLine("Doorgegaan!");
