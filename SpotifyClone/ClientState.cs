@@ -1,4 +1,4 @@
-﻿namespace SpotifyClone;
+namespace SpotifyClone;
 
 public enum ClientState
 {

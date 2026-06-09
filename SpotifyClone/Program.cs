@@ -4,8 +4,7 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        Console.WriteLine("Hallo world");
-        Client client = new Client();
-        client.MainUserSelect();
+        Client client = new();
+        client.Start();
     }
 }
