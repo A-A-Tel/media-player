@@ -74,12 +74,21 @@ public class Client
     {
         Console.WriteLine("Welkom " + _mainUser);
         char input = Input(
+            new CommandEntry('s', "Laat alle nummers zien"),
+            new CommandEntry('a', "Laat alle artiesten zien"),
             new CommandEntry('g', "Uitloggen"),
             new CommandEntry('s', "Doorgaan")
         );
 
         switch (input)
         {
+           
+            case 's':
+                SongSelectMenu();
+                break;
+            case 'a':
+                ArtistSelectMenu();
+                break;
             case 'g':
                 Console.WriteLine("Uitgelogd!");
                 _state = ClientState.MainUserSelect;
@@ -102,8 +111,26 @@ public class Client
 
     private Song SongSelectMenu()
     {
-        throw new NotImplementedException();
+        List<Song> songs = Song.GetAllSongs();
+        foreach (Song song in songs)
+        {
+            Console.WriteLine(song);
+        }
+
+        return null!;
     }
+    private Artist ArtistSelectMenu()
+    {
+        List<Artist> artists = Artist.GetAllArtists();
+       foreach (Artist artist in artists)
+       {  
+            Console.WriteLine(artist); 
+       }
+
+
+        return null!;
+    }
+
 
     private User UserSelectMenu()
     {

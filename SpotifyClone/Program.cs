@@ -1,3 +1,4 @@
+using SpotifyClone.Entities;
 namespace SpotifyClone;
 
 public class Program
