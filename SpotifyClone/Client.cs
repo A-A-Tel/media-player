@@ -11,7 +11,7 @@ public class Client
     private WaveOutEvent _player = new();
     private AudioFileReader? _audioReader;
     private Queue<Song> _queue = new();
-    private ClientState _state = ClientState.GeneralSelect; // This should be MainUserSelect when that feature is ready
+    private ClientState _state = ClientState.MainUserSelect; // This should be MainUserSelect when that feature is ready
 
     public void Start()
     {
@@ -63,15 +63,21 @@ public class Client
 
     private void MainUserSelect()
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Kies de hoofdgebruiker!");
+        
+        _mainUser = UserSelectMenu();
+
+        _state = ClientState.GeneralSelect;
     }
 
     private void GeneralSelect()
     {
-        
+        Console.WriteLine("Welkom " + _mainUser);
         char input = Input(
             new CommandEntry('s', "Laat alle nummers zien"),
-            new CommandEntry('a', "Laat alle artiesten zien")
+            new CommandEntry('a', "Laat alle artiesten zien"),
+            new CommandEntry('g', "Uitloggen"),
+            new CommandEntry('s', "Doorgaan")
         );
 
         switch (input)
@@ -82,6 +88,13 @@ public class Client
                 break;
             case 'a':
                 ArtistSelectMenu();
+                break;
+            case 'g':
+                Console.WriteLine("Uitgelogd!");
+                _state = ClientState.MainUserSelect;
+                break;
+            case 's':
+                Console.WriteLine("Doorgegaan!");
                 break;
         }
         
@@ -121,7 +134,11 @@ public class Client
 
     private User UserSelectMenu()
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Gebruikers:");
+        List<User> users = User.GetAllUsers();
+        int index = Input(users);
+        
+        return users[index];
     }
 
     private Playlist PlaylistSelectMenu()
@@ -154,7 +171,8 @@ public class Client
         return input;
     }
 
-    private int Input(List<object> items)
+    private int Input<T>(List<T> items)
+        where T : class
     {
         for (int i = 0; i < items.Count; i++)
             Console.WriteLine("[" + i + "] - " + items[i]);
