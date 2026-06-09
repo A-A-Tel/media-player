@@ -19,4 +19,9 @@ public class User
     {
         return Users;
     }
+
+    public override string ToString()
+    {
+        return Name;
+    }
 }
