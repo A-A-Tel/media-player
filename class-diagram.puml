@@ -7,12 +7,19 @@ namespace MediaPlayer {
         MainUserSelect
         GeneralSelect
         FriendSelect
+        Stopped
+    }
+    
+    struct CommandEntry {
+        + Key: char
+        + Description: string
     }
     
     class Client {
         - _mainUser: User
         - _currentSong: Song
-        - _player: SoundPlayer
+        - _player: WaveOutEvent
+        - _audioReader: AudioFileReader
         - _queue: Queue<Song>
         - _state: ClientState
         
@@ -37,7 +44,9 @@ namespace MediaPlayer {
         
         ' helpers
         - FlushTerminal(): void
-        - Input(allowedChars: char[1..*]): char
+        - Input(entries: CommandEntry[1..*]): char
+        - Input(items: List<T>): int
+        - ClearLine(): void
     }
     
     namespace Entities {
@@ -46,10 +55,11 @@ namespace MediaPlayer {
             - _name: string
             - _artists: List<Artist>
             - _duration: double
-            - _releaseDate: Date
+            - _releaseDate: DateOnly
             + Name: _name
             + Artists: _artist
             + Duration: _duration
+            + ReleaseDate: _releaseDate
             
             + GetAllSongs(): List<Song> {static}
         }
@@ -94,6 +104,8 @@ namespace MediaPlayer {
             + Albums: _albums
             + Songs: _songs
             + Name: _name
+            
+            + GetAllArtists(): List<Artists> {static}
         }
     }
 }
