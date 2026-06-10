@@ -31,7 +31,7 @@ public class Client
     }
 
     #region Actions
-    
+
     private void AppendQueue(Song song)
     {
         throw new NotImplementedException();
@@ -56,7 +56,7 @@ public class Client
     {
         throw new NotImplementedException();
     }
-    
+
     #endregion
 
     #region State
@@ -64,7 +64,7 @@ public class Client
     private void MainUserSelect()
     {
         Console.WriteLine("Kies de hoofdgebruiker!");
-        
+
         _mainUser = UserSelectMenu();
 
         _state = ClientState.GeneralSelect;
@@ -78,12 +78,12 @@ public class Client
             new CommandEntry('a', "Laat alle artiesten zien"),
              new CommandEntry('b', "Laat alle albums zien"),
             new CommandEntry('g', "Uitloggen")
-            
+
         );
 
         switch (input)
         {
-           
+
             case 's':
                 SongSelectMenu();
                 break;
@@ -97,9 +97,9 @@ public class Client
             case 'b':
                 AlbumSelectMenu();
                 break;
-           
+
         }
-        
+
     }
 
     private void FriendSelect()
@@ -123,14 +123,11 @@ public class Client
     }
     private Artist ArtistSelectMenu()
     {
+        Console.WriteLine("Artiesten:");
         List<Artist> artists = Artist.GetAllArtists();
-       foreach (Artist artist in artists)
-       {  
-            Console.WriteLine(artist); 
-       }
+        int index = Input(artists);
 
-
-        return null!;
+        return artists[index];
     }
 
 
@@ -145,14 +142,11 @@ public class Client
 
     private Album AlbumSelectMenu()
     {
+        Console.WriteLine("Albums:");
         List<Album> albums = Album.GetAllAlbums();
-        foreach (Album album in albums)
-        {
-            Console.WriteLine(album);
-        }
+        int index = Input(albums);
 
-
-        return null!;
+        return albums[index];
     }
 
     private Playlist PlaylistSelectMenu()
