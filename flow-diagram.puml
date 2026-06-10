@@ -1,0 +1,13 @@
+@startuml
+[*] --> MainUserSelect
+state MainUserSelect : wacht op hoofdgebruiker keuze
+MainUserSelect --> MainUserSelect : kiest een ongeldige optie
+MainUserSelect --> GeneralSelect : kiest hoofdgebruiker
+state GeneralSelect : wacht op selectie keuze
+GeneralSelect --> GeneralSelect : kiest een ongeldige optie
+GeneralSelect --> MainUserSelect : Uitloggen
+GeneralSelect --> doorgaan : doorgaan
+state doorgaan : wacht op navigatie keuze
+doorgaan --> doorgaan : help
+doorgaan --> GeneralSelect : terug
+@enduml
