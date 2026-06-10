@@ -5,7 +5,7 @@ public class Song
     private readonly static List<Song> _songs =
         [
             new("Bohemian Rhapsody", [new Artist("Queen")], 355, DateOnly.Parse("1975-10-31")),
-            new(@"Stairway to Heaven", [new Artist("Led Zeppelin")], 482, DateOnly.Parse("1971-11-08")),
+            new("Stairway to Heaven", [new Artist("Led Zeppelin")], 482, DateOnly.Parse("1971-11-08")),
             new("Hotel California", [new Artist("Eagles")], 390, DateOnly.Parse("1976-12-08")),
         ];
 

@@ -31,7 +31,7 @@ public class Client
     }
 
     #region Actions
-    
+
     private void AppendQueue(Song song)
     {
         throw new NotImplementedException();
@@ -56,7 +56,7 @@ public class Client
     {
         throw new NotImplementedException();
     }
-    
+
     #endregion
 
     #region State
@@ -64,7 +64,7 @@ public class Client
     private void MainUserSelect()
     {
         Console.WriteLine("Kies de hoofdgebruiker!");
-        
+
         _mainUser = UserSelectMenu();
 
         _state = ClientState.GeneralSelect;
@@ -76,13 +76,14 @@ public class Client
         char input = Input(
             new CommandEntry('s', "Laat alle nummers zien"),
             new CommandEntry('a', "Laat alle artiesten zien"),
-            new CommandEntry('g', "Uitloggen"),
-            new CommandEntry('s', "Doorgaan")
+             new CommandEntry('b', "Laat alle albums zien"),
+            new CommandEntry('g', "Uitloggen")
+
         );
 
         switch (input)
         {
-           
+
             case 's':
                 SongSelectMenu();
                 break;
@@ -93,11 +94,12 @@ public class Client
                 Console.WriteLine("Uitgelogd!");
                 _state = ClientState.MainUserSelect;
                 break;
-            case 's':
-                Console.WriteLine("Doorgegaan!");
+            case 'b':
+                AlbumSelectMenu();
                 break;
+
         }
-        
+
     }
 
     private void FriendSelect()
@@ -121,14 +123,11 @@ public class Client
     }
     private Artist ArtistSelectMenu()
     {
+        Console.WriteLine("Artiesten:");
         List<Artist> artists = Artist.GetAllArtists();
-       foreach (Artist artist in artists)
-       {  
-            Console.WriteLine(artist); 
-       }
+        int index = Input(artists);
 
-
-        return null!;
+        return artists[index];
     }
 
 
@@ -139,6 +138,15 @@ public class Client
         int index = Input(users);
         
         return users[index];
+    }
+
+    private Album AlbumSelectMenu()
+    {
+        Console.WriteLine("Albums:");
+        List<Album> albums = Album.GetAllAlbums();
+        int index = Input(albums);
+
+        return albums[index];
     }
 
     private Playlist PlaylistSelectMenu()
