@@ -76,8 +76,9 @@ public class Client
         char input = Input(
             new CommandEntry('s', "Laat alle nummers zien"),
             new CommandEntry('a', "Laat alle artiesten zien"),
-            new CommandEntry('g', "Uitloggen"),
-            new CommandEntry('s', "Doorgaan")
+             new CommandEntry('b', "Laat alle albums zien"),
+            new CommandEntry('g', "Uitloggen")
+            
         );
 
         switch (input)
@@ -93,9 +94,10 @@ public class Client
                 Console.WriteLine("Uitgelogd!");
                 _state = ClientState.MainUserSelect;
                 break;
-            case 's':
-                Console.WriteLine("Doorgegaan!");
+            case 'b':
+                AlbumSelectMenu();
                 break;
+           
         }
         
     }
@@ -139,6 +141,18 @@ public class Client
         int index = Input(users);
         
         return users[index];
+    }
+
+    private Album AlbumSelectMenu()
+    {
+        List<Album> albums = Album.GetAllAlbums();
+        foreach (Album album in albums)
+        {
+            Console.WriteLine(album);
+        }
+
+
+        return null!;
     }
 
     private Playlist PlaylistSelectMenu()
