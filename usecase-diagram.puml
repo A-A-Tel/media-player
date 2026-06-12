@@ -1,0 +1,58 @@
+@startuml
+left to right direction
+
+
+actor Gebruiker as user
+
+package "Bibliotheek bekijken" {
+    usecase "Muziekbibliotheek bekijken" as UC_Browse
+    usecase "Nummers inzien" as UC_Songs
+    usecase "Albums inzien" as UC_Albums
+    usecase "Artiesten inzien" as UC_Artists
+    usecase "Albums van specifieke artiest inzien" as UC_ArtistAlbums
+
+    UC_Browse ..> UC_Songs : <<include>>
+    UC_Browse ..> UC_Albums : <<include>>
+    UC_Browse ..> UC_Artists : <<include>>
+    UC_Artists ..> UC_ArtistAlbums : <<include>>
+}
+
+package "Muziek afspelen" {
+    usecase "Nummers afspelen" as UC_Play
+    usecase "Nummers stoppen" as UC_Stop
+    usecase "Nummers overslaan" as UC_Skip
+}
+
+package "Beheer" {
+    usecase "Commando's invullen" as UC_Command
+    usecase "Hoofdgebruiker kiezen" as UC_MainUser
+}
+
+package "Sociaal & Speellijsten" {
+    usecase "Vrienden toevoegen" as UC_Friends
+    usecase "Speellijsten aanmaken" as UC_Playlists
+    usecase "Speellijsten overnemen van vrienden" as UC_PlaylistFriend
+    usecase "Speellijsten afspelen" as UC_PlayPlaylists
+    usecase "Speellijsten mengen" as UC_PlaylistMerge
+
+    UC_PlaylistFriend ..> UC_Friends : <<include>>
+    UC_PlaylistMerge ..> UC_Playlists : <<include>>
+    UC_PlayPlaylists ..> UC_Playlists : <<include>>
+}
+
+user --> UC_Browse
+user --> UC_Play
+user --> UC_Command
+user --> UC_MainUser
+user --> UC_Friends
+user --> UC_Playlists
+user --> UC_PlayPlaylists
+user --> UC_PlaylistFriend
+user --> UC_PlaylistMerge
+
+UC_Play .> UC_Stop : <<extend>>
+UC_Play .> UC_Skip : <<extend>>
+
+UC_PlayPlaylists ..> UC_Play : <<include>>
+
+@enduml
