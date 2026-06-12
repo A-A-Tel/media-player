@@ -14,6 +14,10 @@ GeneralSelect --> PlaylistSelectMenu : Afspeelijsten
 GeneralSelect --> SongSelectMenu : Nummers
 GeneralSelect --> FriendSelect : Vrienden
 FriendSelect --> GeneralSelect : Terug
+state AlbumSelectMenu : Laat een album lijst inzien
+state AlbumSelectMenu : album kan gekozen worden
+state AlbumSelectMenu : gebruiker kan terug gaan om de album lijst in te zien
+AlbumSelectMenu --> GeneralSelect : Terug
 state FriendSelect : Laat vrienden zien
 state FriendSelect : Laat geef optie om vrienden toe te voegen
 state FriendSelect : Wacht op gebruikers vriend verzoek
