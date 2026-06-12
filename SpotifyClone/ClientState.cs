@@ -8,6 +8,5 @@ public enum ClientState
     SongSelectMenu,
     UserSelectMenu,
     AlbumSelectMenu,
-    PlaylistSelectMenu,
     Stopped
 }
