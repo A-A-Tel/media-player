@@ -5,7 +5,6 @@ public enum ClientState
     MainUserSelect,
     GeneralSelect,
     FriendSelect,
-    SongSelectMenu,
     UserSelectMenu,
     AlbumSelectMenu,
     Stopped
