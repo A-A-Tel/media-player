@@ -51,6 +51,21 @@ public class Client
     {
         throw new NotImplementedException();
     }
+    
+    private void AddFriend()
+    {
+        throw new NotImplementedException();
+    }
+    
+    private void ViewFriends()
+    {
+        throw new NotImplementedException();
+    }
+    
+    private void RemoveFriend()
+    {
+        throw new NotImplementedException();
+    }
 
     private void StopPlayer()
     {
@@ -105,9 +120,13 @@ public class Client
         }
     }
 
-    private void FriendSelect()
+    private User FriendSelect()
     {
-        throw new NotImplementedException();
+        List<User> users = User.GetAllUsers();
+        Console.WriteLine("Typ 'terug' om terug te keren");
+        Console.WriteLine("Stuur een vriendschap verzoek!");
+        int index = Input(users);
+        return users[index];
     }
 
     #endregion
