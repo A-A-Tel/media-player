@@ -77,6 +77,7 @@ public class Client
             new CommandEntry('s', "Laat alle nummers zien"),
             new CommandEntry('a', "Laat alle artiesten zien"),
              new CommandEntry('b', "Laat alle albums zien"),
+             new CommandEntry('c', "Laat alle vrienden zien"),
             new CommandEntry('g', "Uitloggen")
 
         );
@@ -90,6 +91,9 @@ public class Client
             case 'a':
                 ArtistSelectMenu();
                 break;
+            case 'c':
+                FriendSelect();
+                break;
             case 'g':
                 Console.WriteLine("Uitgelogd!");
                 _state = ClientState.MainUserSelect;
@@ -99,7 +103,6 @@ public class Client
                 break;
 
         }
-
     }
 
     private void FriendSelect()
@@ -129,7 +132,6 @@ public class Client
 
         return artists[index];
     }
-
 
     private User UserSelectMenu()
     {
