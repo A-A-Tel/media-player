@@ -57,6 +57,34 @@ public class Client
         throw new NotImplementedException();
     }
 
+    private void ViewArtistAlbums()
+    {
+        Artist artist = ArtistSelectMenu();
+
+        Console.WriteLine($"Albums van {artist.Name}:");
+
+
+        List<Album> albums= Album.GetAllAlbums();
+        foreach (Album album in albums)
+        {
+            if (album.Artists.Contains(artist))  
+            {
+                Console.WriteLine(album.Name);
+            }
+        }
+
+
+    }
+
+
+    private void ViewAlbumSongs()
+    {
+        Album selectedAlbum = AlbumSelectMenu();
+        Console.WriteLine("Albums:" + selectedAlbum.Name);
+         
+        
+    }
+
     #endregion
 
     #region State
@@ -76,9 +104,10 @@ public class Client
         char input = Input(
             new CommandEntry('s', "Laat alle nummers zien"),
             new CommandEntry('a', "Laat alle artiesten zien"),
-             new CommandEntry('b', "Laat alle albums zien"),
+            new CommandEntry('b', "Laat alle albums zien"),
+            new CommandEntry('c', "Laat albums van geselecteerd artiest zien"),
             new CommandEntry('g', "Uitloggen")
-
+            
         );
 
         switch (input)
@@ -96,6 +125,9 @@ public class Client
                 break;
             case 'b':
                 AlbumSelectMenu();
+                break;
+            case 'c':
+                ViewArtistAlbums();
                 break;
 
         }
@@ -129,7 +161,8 @@ public class Client
 
         return artists[index];
     }
-
+   
+    
 
     private User UserSelectMenu()
     {
