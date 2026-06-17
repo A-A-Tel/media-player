@@ -4,7 +4,7 @@ public class Album
 {
     private readonly static List<Album> _albums =
       [
-         new("A Night at the Opera", Artist.GetAllArtists()[0]),
+        new("A Night at the Opera", Artist.GetAllArtists()[0]),
         new("Led Zeppelin IV", Artist.GetAllArtists()[1]),
         new("Hotel California", Artist.GetAllArtists()[2])
       ];
