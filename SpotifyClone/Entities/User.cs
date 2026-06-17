@@ -6,7 +6,7 @@ public class User
 
     public string Name { get; private set; }
 
-    public List<User> Friends { get; private set; } = [];
+    private static readonly List<User> Friends = [new("Regu larjoe"), new("Jeff")];
 
     public List<Playlist> Playlists { get; private set; } = [];
 
@@ -18,6 +18,11 @@ public class User
     public static List<User> GetAllUsers()
     {
         return Users;
+    }
+    
+    public static List<User> GetAllFriends()
+    {
+        return Friends;
     }
 
     public override string ToString()

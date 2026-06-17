@@ -123,6 +123,8 @@ public class Client
     private User FriendSelect()
     {
         List<User> users = User.GetAllUsers();
+        List<User> friends = User.GetAllFriends();
+        Input(friends);
         Console.WriteLine("Typ 'terug' om terug te keren");
         Console.WriteLine("Stuur een vriendschap verzoek!");
         int index = Input(users);
