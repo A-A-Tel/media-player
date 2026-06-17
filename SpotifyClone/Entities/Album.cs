@@ -12,12 +12,11 @@ public class Album
     public string Name { get; private set; }
     public List<Artist> Artists { get; private set; } = [];
     public List<Song> Songs { get; private set; } = [];
-    public Artist Artist { get; private set; }
 
     public Album(string name , Artist artist)
     {
         Name = name;
-        Artist = artist;
+        Artists.Add(artist);
         artist.Albums.Add(this);
     }
 
