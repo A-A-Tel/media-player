@@ -7,7 +7,6 @@ namespace SpotifyClone;
 public class Client
 {
     private User _mainUser = User.GetAllUsers()[0]; // This is temporary
-    private Queue<Song> _queue = new();
     private ClientState _state = ClientState.MainUserSelect; // This should be MainUserSelect when that feature is ready
 
     public void Start()
