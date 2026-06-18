@@ -54,17 +54,53 @@ public class Client
     
     private void AddFriend()
     {
-        throw new NotImplementedException();
+        List<User> friends = _mainUser.Friends;
+        List<User> users = User.GetAllUsers();
+        Console.WriteLine("Kies een gebruiker om een vriendschapsverzoek te sturen");
+
+        int index = Input(users);
+        User gekozen = users[index];
+        if (gekozen == _mainUser)
+        {
+            Console.WriteLine("Je kan jezelf niet als vriend toevoegen!");
+            return;
+        }
+        friends.Add(gekozen);
+        Console.WriteLine("verzoek gestuurd naar " + gekozen);
     }
     
     private void ViewFriends()
-    {
-        throw new NotImplementedException();
+    {   
+        List<User> friends = _mainUser.Friends;
+        Console.WriteLine("Vrienden:");
+
+        if (friends.Count == 0)
+        {
+            Console.WriteLine("Nog geen vrienden!");
+            return;
+        }
+
+        foreach (User friend in friends)
+        {
+            if (friend.Friends.Contains(_mainUser))
+                Console.WriteLine(friend.Name);
+            else
+                Console.WriteLine(friend.Name + " (verzoek nog niet beantwoord!)");
+        }
     }
     
     private void RemoveFriend()
     {
-        throw new NotImplementedException();
+        List<User> friends = _mainUser.Friends;
+        if (friends.Count == 0)
+        {
+            Console.WriteLine("geen vrienden om te verwijderen!");
+            return;
+        }
+        Console.WriteLine("Kies een vriend om te verwijderen");
+        int index = Input(friends);
+        User gekozen = friends[index];
+        friends.Remove(gekozen);
     }
 
     private void StopPlayer()
@@ -120,15 +156,30 @@ public class Client
         }
     }
 
-    private User FriendSelect()
+    private void FriendSelect()
     {
-        List<User> users = User.GetAllUsers();
-        List<User> friends = User.GetAllFriends();
-        Input(friends);
-        Console.WriteLine("Typ 'terug' om terug te keren");
-        Console.WriteLine("Stuur een vriendschap verzoek!");
-        int index = Input(users);
-        return users[index];
+        Console.WriteLine("[0] - terug");
+        Console.WriteLine("[1] - vrienden inzien");
+        Console.WriteLine("[2] - vriend verzoek sturen");
+        Console.WriteLine("[3] - vriend verwijderen");
+
+        string? antwoord = Console.ReadLine();
+
+        switch (antwoord)
+        {
+            case "0":
+                _state = ClientState.GeneralSelect;
+                break;
+            case "1":
+                ViewFriends();
+                break;
+            case "2":
+                AddFriend();
+                break;
+            case "3":
+                RemoveFriend();
+                break;
+        }
     }
 
     #endregion
