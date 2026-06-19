@@ -152,20 +152,19 @@ public class Client
             case 'b':
                 AlbumSelectMenu();
                 break;
-
         }
     }
 
     private void FriendSelect()
     {
-        Console.WriteLine("[0] - terug");
-        Console.WriteLine("[1] - vrienden inzien");
-        Console.WriteLine("[2] - vriend verzoek sturen");
-        Console.WriteLine("[3] - vriend verwijderen");
+        Console.WriteLine("[0] - Terug");
+        Console.WriteLine("[1] - Vrienden inzien");
+        Console.WriteLine("[2] - Vriend verzoek sturen");
+        Console.WriteLine("[3] - Vriend verwijderen");
 
-        string? antwoord = Console.ReadLine();
+        string? Antwoord = Console.ReadLine();
 
-        switch (antwoord)
+        switch (Antwoord)
         {
             case "0":
                 _state = ClientState.GeneralSelect;
