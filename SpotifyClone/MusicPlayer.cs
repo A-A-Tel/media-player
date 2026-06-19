@@ -51,7 +51,12 @@ public class MusicPlayer
 
     public void StopPlaying()
     {
-        throw new NotImplementedException();
+        if (_stream != 0)
+        {
+            Bass.ChannelStop(_stream);
+            Bass.StreamFree(_stream);
+            _stream = 0;
+        }
     }
 
     public void SkipSong()

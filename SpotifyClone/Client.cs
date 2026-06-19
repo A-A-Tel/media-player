@@ -45,7 +45,7 @@ public class Client
 
     private void StopPlayer()
     {
-        throw new NotImplementedException();
+        _musicPlayer.StopPlaying();
     }
 
     #endregion
@@ -69,29 +69,31 @@ public class Client
         {
             Console.WriteLine("We spelen nu:" + _musicPlayer.CurrentSong.Name);
         }
-        
+
         char input = Input(
-            new CommandEntry('s', "Speel nummer af"),
-            new CommandEntry('a', "Laat alle artiesten zien"),
-            new CommandEntry('b', "Laat alle albums zien"),
-            new CommandEntry('g', "Uitloggen")
+            new CommandEntry('a', "Speel nummer af"),
+            new CommandEntry('s', "Stop met afspelen"),
+            new CommandEntry('c', "Laat alle artiesten zien"),
+            new CommandEntry('l', "Laat alle albums zien"),
+            new CommandEntry('u', "Uitloggen")
 
         );
-
         switch (input)
         {
-
-            case 's':
+            case 'a':
                 PlaySong();
                 break;
-            case 'a':
+            case 's':
+                StopPlayer();
+                break;
+            case 'c':
                 ArtistSelectMenu();
                 break;
-            case 'g':
+            case 'l':
                 Console.WriteLine("Uitgelogd!");
                 _state = ClientState.MainUserSelect;
                 break;
-            case 'b':
+            case 'u':
                 AlbumSelectMenu();
                 break;
         }
