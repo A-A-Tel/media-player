@@ -5,6 +5,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{56C2976E-4D72-4ADB-BD18-6E8D4E41B9D3}"
 	ProjectSection(SolutionItems) = preProject
 		class-diagram.puml = class-diagram.puml
+		flow-diagram.puml = flow-diagram.puml
 		usecase-diagram.puml = usecase-diagram.puml
 	EndProjectSection
 EndProject

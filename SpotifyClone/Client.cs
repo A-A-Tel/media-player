@@ -48,6 +48,34 @@ public class Client
         _musicPlayer.StopPlaying();
     }
 
+    private void ViewArtistAlbums()
+    {
+        Artist artist = ArtistSelectMenu();
+
+        Console.WriteLine($"Albums van {artist.Name}:");
+
+
+        List<Album> albums= Album.GetAllAlbums();
+        foreach (Album album in albums)
+        {
+            if (album.Artists.Contains(artist))  
+            {
+                Console.WriteLine(album.Name);
+            }
+        }
+
+
+    }
+
+
+    private void ViewAlbumSongs()
+    {
+        Album selectedAlbum = AlbumSelectMenu();
+        Console.WriteLine("Albums:" + selectedAlbum.Name);
+         
+        
+    }
+
     #endregion
 
     #region State
@@ -75,8 +103,8 @@ public class Client
             new CommandEntry('s', "Stop met afspelen"),
             new CommandEntry('c', "Laat alle artiesten zien"),
             new CommandEntry('l', "Laat alle albums zien"),
-            new CommandEntry('u', "Uitloggen")
-
+            new CommandEntry('u', "Uitloggen"),
+            new CommandEntry('j', "Laat albums van geselecteerd artiest zien")
         );
         switch (input)
         {
@@ -96,6 +124,10 @@ public class Client
             case 'u':
                 AlbumSelectMenu();
                 break;
+            case 'j':
+                ViewArtistAlbums();
+                break;
+
         }
     }
 
@@ -119,7 +151,8 @@ public class Client
         Console.WriteLine("Artiesten:");
         return Input(Artist.GetAllArtists());
     }
-
+   
+    
 
     private User UserSelectMenu()
     {

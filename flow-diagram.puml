@@ -1,0 +1,34 @@
+@startuml
+
+state MainUserSelect : laat hoofdgebruikers zien
+state MainUserSelect : wacht op hoofdgebruiker keuze
+state GeneralSelect : laat opties zien van wat gebruikers kunnen doen
+state GeneralSelect : wacht op selectie keuze
+state AlbumSelectMenu : Laat een album lijst inzien
+state AlbumSelectMenu : album kan gekozen worden
+state PlaylistSelectMenu : Laat bestaande playlists inzien
+state PlaylistSelectMenu : Playlist kan gekozen worden
+state SongSelectMenu : Laat lijst van nummers zien
+state SongSelectMenu : Nummer kan gekozen worden
+state FriendSelect : Laat vrienden zien
+state FriendSelect : Wacht op gebruikers vriend verzoek
+state Stopped : Applicatie is gestopt
+
+[*] --> MainUserSelect
+Stopped --> [*]
+
+MainUserSelect --> MainUserSelect : kiest een ongeldige optie
+MainUserSelect --> GeneralSelect : kiest hoofdgebruiker
+GeneralSelect --> GeneralSelect : kiest een ongeldige optie
+GeneralSelect --> GeneralSelect : help
+GeneralSelect --> MainUserSelect : Uitloggen
+GeneralSelect --> AlbumSelectMenu : Albums
+GeneralSelect --> PlaylistSelectMenu : Afspeellijsten
+GeneralSelect --> SongSelectMenu : Nummers
+GeneralSelect --> FriendSelect : Vrienden
+GeneralSelect --> Stopped : stop
+AlbumSelectMenu --> GeneralSelect : Terug
+PlaylistSelectMenu --> GeneralSelect : Terug
+SongSelectMenu --> GeneralSelect : Terug
+FriendSelect --> GeneralSelect : Terug
+@enduml
