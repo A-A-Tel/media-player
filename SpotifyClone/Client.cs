@@ -128,9 +128,8 @@ public class Client
             new CommandEntry('s', "Laat alle nummers zien"),
             new CommandEntry('a', "Laat alle artiesten zien"),
              new CommandEntry('b', "Laat alle albums zien"),
-             new CommandEntry('c', "Laat alle vrienden zien"),
+             new CommandEntry('v', "Laat alle vrienden zien"),
             new CommandEntry('g', "Uitloggen")
-
         );
 
         switch (input)
@@ -142,8 +141,9 @@ public class Client
             case 'a':
                 ArtistSelectMenu();
                 break;
-            case 'c':
+            case 'v':
                 FriendSelect();
+                _state = ClientState.FriendSelect;
                 break;
             case 'g':
                 Console.WriteLine("Uitgelogd!");
@@ -157,25 +157,24 @@ public class Client
 
     private void FriendSelect()
     {
-        Console.WriteLine("[0] - Terug");
-        Console.WriteLine("[1] - Vrienden inzien");
-        Console.WriteLine("[2] - Vriend verzoek sturen");
-        Console.WriteLine("[3] - Vriend verwijderen");
-
-        string? Antwoord = Console.ReadLine();
-
-        switch (Antwoord)
+        char input = Input(
+            new CommandEntry('0', "Terug"),
+            new CommandEntry('1', "Vrienden inzien"),
+            new CommandEntry('2', "Vriend verzoek sturen"),
+            new CommandEntry('3', "Vriend verwijderen")
+        );
+        switch (input)
         {
-            case "0":
+            case '0':
                 _state = ClientState.GeneralSelect;
                 break;
-            case "1":
+            case '1':
                 ViewFriends();
                 break;
-            case "2":
+            case '2':
                 AddFriend();
                 break;
-            case "3":
+            case '3':
                 RemoveFriend();
                 break;
         }
