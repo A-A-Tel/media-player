@@ -2,31 +2,31 @@ namespace SpotifyClone.Entities;
 
 public class Album
 {
-    private readonly static List<Album> _albums =
-      [
-        new("A Night at the Opera", Artist.GetAllArtists()[0]),
-        new("Led Zeppelin IV", Artist.GetAllArtists()[1]),
-        new("Hotel California", Artist.GetAllArtists()[2])
-      ];
+    private static readonly List<Album> Albums =
+    [
+        new("Nostalgia 2016", [Artist.GetAllArtists()[0]]),
+        new("The most epic battles of rap", [Artist.GetAllArtists()[1]]),
+        new("Derp", [Artist.GetAllArtists()[2], Artist.GetAllArtists()[3], Artist.GetAllArtists()[4]])
+    ];
 
     public string Name { get; private set; }
-    public List<Artist> Artists { get; private set; } = [];
-    public List<Song> Songs { get; private set; } = [];
+    
+    public List<Artist> Artists { get; private set; }
+    public List<Song> Songs => Song.GetAllSongs().Where(s => s.Album == this).ToList();
 
-    public Album(string name , Artist artist)
+    public Album(string name, List<Artist> artists)
     {
         Name = name;
-        Artists.Add(artist);
-        artist.Albums.Add(this);
+        Artists = artists;
     }
 
     public static List<Album> GetAllAlbums()
     {
-        return _albums;
+        return Albums;
     }
 
     public override string ToString()
     {
-        return Name;
+        return Name + " - " + string.Join(", ", Artists);
     }
 }

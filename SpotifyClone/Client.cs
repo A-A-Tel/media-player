@@ -1,16 +1,11 @@
 using SpotifyClone.Entities;
-using System.Media;
-using NAudio.Wave;
 
 namespace SpotifyClone;
 
 public class Client
 {
+    private readonly MusicPlayer _musicPlayer = new();
     private User _mainUser = User.GetAllUsers()[0]; // This is temporary
-    private Song? _currentSong;
-    private WaveOutEvent _player = new();
-    private AudioFileReader? _audioReader;
-    private Queue<Song> _queue = new();
     private ClientState _state = ClientState.MainUserSelect; // This should be MainUserSelect when that feature is ready
 
     public void Start()
@@ -32,14 +27,10 @@ public class Client
 
     #region Actions
 
-    private void AppendQueue(Song song)
+    private void PlaySong()
     {
-        throw new NotImplementedException();
-    }
-
-    private void PlaySong(Song song)
-    {
-        throw new NotImplementedException();
+        Song song = SongSelectMenu();
+        _musicPlayer.PlaySong(song);
     }
 
     private void SkipSong()
@@ -105,7 +96,7 @@ public class Client
 
     private void StopPlayer()
     {
-        throw new NotImplementedException();
+        _musicPlayer.StopPlaying();
     }
 
     private void ViewArtistAlbums()
@@ -152,33 +143,40 @@ public class Client
     private void GeneralSelect()
     {
         Console.WriteLine("Welkom " + _mainUser);
-        char input = Input(
-            new CommandEntry('s', "Laat alle nummers zien"),
-            new CommandEntry('a', "Laat alle artiesten zien"),
-            new CommandEntry('v', "Laat alle vrienden zien"),
-            new CommandEntry('b', "Laat alle albums zien"),
-            new CommandEntry('j', "Laat albums van geselecteerd artiest zien"),
-            new CommandEntry('g', "Uitloggen")
-            
-        );
 
+        if (_musicPlayer.CurrentSong != null)
+        {
+            Console.WriteLine("We spelen nu:" + _musicPlayer.CurrentSong.Name);
+        }
+
+        char input = Input(
+            new CommandEntry('a', "Speel nummer af"),
+            new CommandEntry('s', "Stop met afspelen"),
+            new CommandEntry('c', "Laat alle artiesten zien"),
+            new CommandEntry('v', "Laat alle vrienden zien"),
+            new CommandEntry('l', "Laat alle albums zien"),
+            new CommandEntry('u', "Uitloggen"),
+            new CommandEntry('j', "Laat albums van geselecteerd artiest zien")
+        );
         switch (input)
         {
-
-            case 's':
-                SongSelectMenu();
-                break;
             case 'a':
+                PlaySong();
+                break;
+            case 's':
+                StopPlayer();
+                break;
+            case 'c':
                 ArtistSelectMenu();
                 break;
             case 'v':
                 FriendSelect();
                 break;
-            case 'g':
+            case 'u':
                 Console.WriteLine("Uitgelogd!");
                 _state = ClientState.MainUserSelect;
                 break;
-            case 'b':
+            case 'l':
                 AlbumSelectMenu();
                 break;
             case 'j':
@@ -220,39 +218,26 @@ public class Client
 
     private Song SongSelectMenu()
     {
-        List<Song> songs = Song.GetAllSongs();
-        foreach (Song song in songs)
-        {
-            Console.WriteLine(song);
-        }
-
-        return null!;
+        Console.WriteLine("Nummers:");
+        return Input(Song.GetAllSongs());
     }
+    
     private Artist ArtistSelectMenu()
     {
         Console.WriteLine("Artiesten:");
-        List<Artist> artists = Artist.GetAllArtists();
-        int index = Input(artists);
-
-        return artists[index];
+        return Input(Artist.GetAllArtists());
     }
 
     private User UserSelectMenu()
     {
         Console.WriteLine("Gebruikers:");
-        List<User> users = User.GetAllUsers();
-        int index = Input(users);
-        
-        return users[index];
+        return Input(User.GetAllUsers());
     }
 
     private Album AlbumSelectMenu()
     {
         Console.WriteLine("Albums:");
-        List<Album> albums = Album.GetAllAlbums();
-        int index = Input(albums);
-
-        return albums[index];
+        return Input(Album.GetAllAlbums());
     }
 
     private Playlist PlaylistSelectMenu()
@@ -285,7 +270,7 @@ public class Client
         return input;
     }
 
-    private int Input<T>(List<T> items)
+    private T Input<T>(List<T> items)
         where T : class
     {
         for (int i = 0; i < items.Count; i++)
@@ -302,7 +287,7 @@ public class Client
             ClearLine();
         } while (input < 0 || input >= items.Count);
         
-        return input;
+        return items[input];
     }
     
     private static void ClearLine()
