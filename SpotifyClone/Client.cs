@@ -168,7 +168,7 @@ public class Client
                 ArtistSelectMenu();
                 break;
             case 'v':
-                FriendSelect();
+                _state = ClientState.FriendSelect;
                 break;
             case 'u':
                 Console.WriteLine("Uitgelogd!");
