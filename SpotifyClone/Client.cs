@@ -6,21 +6,24 @@ public class Client
 {
     private readonly MusicPlayer _musicPlayer = new();
     private User _mainUser = User.GetAllUsers()[0]; // This is temporary
-    private ClientState _state = ClientState.MainUserSelect; // This should be MainUserSelect when that feature is ready
+    private ClientState _state = ClientState.MainUserSelectState; // This should be MainUserSelect when that feature is ready
 
     public void Start()
     {
         while (_state != ClientState.Stopped)
             switch (_state)
             {
-                case ClientState.MainUserSelect:
+                case ClientState.MainUserSelectState:
                     MainUserSelect();
                     break;
-                case ClientState.GeneralSelect:
+                case ClientState.GeneralState:
                     GeneralSelect();
                     break;
-                case ClientState.FriendSelect:
+                case ClientState.FriendState:
                     FriendSelect();
+                    break;
+                case ClientState.PlaylistState:
+                    PlaylistSelect();
                     break;
             }
     }
@@ -141,7 +144,7 @@ public class Client
 
         _mainUser = UserSelectMenu();
 
-        _state = ClientState.GeneralSelect;
+        _state = ClientState.GeneralState;
     }
 
     private void GeneralSelect()
@@ -182,11 +185,11 @@ public class Client
                 ArtistSelectMenu();
                 break;
             case 'v':
-                _state = ClientState.FriendSelect;
+                _state = ClientState.FriendState;
                 break;
             case 'u':
                 Console.WriteLine("Uitgelogd!");
-                _state = ClientState.MainUserSelect;
+                _state = ClientState.MainUserSelectState;
                 break;
             case 'l':
                 AlbumSelectMenu();
@@ -209,7 +212,7 @@ public class Client
         switch (input)
         {
             case '0':
-                _state = ClientState.GeneralSelect;
+                _state = ClientState.GeneralState;
                 break;
             case '1':
                 ViewFriends();
@@ -221,6 +224,11 @@ public class Client
                 RemoveFriend();
                 break;
         }
+    }
+
+    private void PlaylistSelect()
+    {
+        
     }
 
     #endregion

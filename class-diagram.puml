@@ -4,11 +4,11 @@ left to right direction
 namespace MediaPlayer {
 
     enum ClientState {
-        MainUserSelect
-        GeneralSelect
-        FriendSelect
-        PlaylistSelect
-        Stopped
+        MainUserSelectState
+        GeneralState
+        FriendState
+        PlaylistState
+        StoppedState
     }
     
     record CommandEntry {
