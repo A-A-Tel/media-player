@@ -42,6 +42,55 @@ public class Client
     {
         throw new NotImplementedException();
     }
+    
+    private void AddFriend()
+    {
+        List<User> friends = _mainUser.Friends;
+        List<User> users = User.GetAllUsers();
+        Console.WriteLine("Kies een gebruiker om een vriendschapsverzoek te sturen");
+
+        User chosen = Input(users);
+        if (chosen == _mainUser)
+        {
+            Console.WriteLine("Je kan jezelf niet als vriend toevoegen!");
+            return;
+        }
+        friends.Add(chosen);
+        Console.WriteLine("verzoek gestuurd naar " + chosen);
+    }
+    
+    private void ViewFriends()
+    {   
+        List<User> friends = _mainUser.Friends;
+        Console.WriteLine("Vrienden:");
+
+        if (friends.Count == 0)
+        {
+            Console.WriteLine("Nog geen vrienden!");
+            return;
+        }
+
+        foreach (User friend in friends)
+        {
+            if (friend.Friends.Contains(_mainUser))
+                Console.WriteLine(friend.Name);
+            else
+                Console.WriteLine(friend.Name + " (verzoek nog niet beantwoord!)");
+        }
+    }
+    
+    private void RemoveFriend()
+    {
+        List<User> friends = _mainUser.Friends;
+        if (friends.Count == 0)
+        {
+            Console.WriteLine("geen vrienden om te verwijderen!");
+            return;
+        }
+        Console.WriteLine("Kies een vriend om te verwijderen");
+        User chosen = Input(friends);
+        friends.Remove(chosen);
+    }
 
     private void StopPlayer()
     {
@@ -102,6 +151,7 @@ public class Client
             new CommandEntry('a', "Speel nummer af"),
             new CommandEntry('s', "Stop met afspelen"),
             new CommandEntry('c', "Laat alle artiesten zien"),
+            new CommandEntry('v', "Laat alle vrienden zien"),
             new CommandEntry('l', "Laat alle albums zien"),
             new CommandEntry('u', "Uitloggen"),
             new CommandEntry('j', "Laat albums van geselecteerd artiest zien")
@@ -117,11 +167,14 @@ public class Client
             case 'c':
                 ArtistSelectMenu();
                 break;
-            case 'l':
+            case 'v':
+                _state = ClientState.FriendSelect;
+                break;
+            case 'u':
                 Console.WriteLine("Uitgelogd!");
                 _state = ClientState.MainUserSelect;
                 break;
-            case 'u':
+            case 'l':
                 AlbumSelectMenu();
                 break;
             case 'j':
@@ -133,7 +186,27 @@ public class Client
 
     private void FriendSelect()
     {
-        throw new NotImplementedException();
+        char input = Input(
+            new CommandEntry('0', "Terug"),
+            new CommandEntry('1', "Vrienden inzien"),
+            new CommandEntry('2', "Vriend verzoek sturen"),
+            new CommandEntry('3', "Vriend verwijderen")
+        );
+        switch (input)
+        {
+            case '0':
+                _state = ClientState.GeneralSelect;
+                break;
+            case '1':
+                ViewFriends();
+                break;
+            case '2':
+                AddFriend();
+                break;
+            case '3':
+                RemoveFriend();
+                break;
+        }
     }
 
     #endregion
@@ -151,8 +224,6 @@ public class Client
         Console.WriteLine("Artiesten:");
         return Input(Artist.GetAllArtists());
     }
-   
-    
 
     private User UserSelectMenu()
     {

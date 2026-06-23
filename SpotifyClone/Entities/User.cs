@@ -7,7 +7,8 @@ public class User
     public string Name { get; private set; }
 
     public List<User> Friends { get; private set; } = [];
-
+    
+    
     public List<Playlist> Playlists { get; private set; } = [];
 
     public User(string name)
