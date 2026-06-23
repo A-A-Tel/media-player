@@ -49,15 +49,14 @@ public class Client
         List<User> users = User.GetAllUsers();
         Console.WriteLine("Kies een gebruiker om een vriendschapsverzoek te sturen");
 
-        int index = Input(users);
-        User gekozen = users[index];
-        if (gekozen == _mainUser)
+        User chosen = Input(users);
+        if (chosen == _mainUser)
         {
             Console.WriteLine("Je kan jezelf niet als vriend toevoegen!");
             return;
         }
-        friends.Add(gekozen);
-        Console.WriteLine("verzoek gestuurd naar " + gekozen);
+        friends.Add(chosen);
+        Console.WriteLine("verzoek gestuurd naar " + chosen);
     }
     
     private void ViewFriends()
@@ -89,9 +88,8 @@ public class Client
             return;
         }
         Console.WriteLine("Kies een vriend om te verwijderen");
-        int index = Input(friends);
-        User gekozen = friends[index];
-        friends.Remove(gekozen);
+        User chosen = Input(friends);
+        friends.Remove(chosen);
     }
 
     private void StopPlayer()
