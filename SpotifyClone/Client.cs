@@ -186,25 +186,24 @@ public class Client
 
     private void FriendSelect()
     {
-        Console.WriteLine("[0] - terug");
-        Console.WriteLine("[1] - vrienden inzien");
-        Console.WriteLine("[2] - vriend verzoek sturen");
-        Console.WriteLine("[3] - vriend verwijderen");
-
-        string? antwoord = Console.ReadLine();
-
-        switch (antwoord)
+        char input = Input(
+            new CommandEntry('0', "Terug"),
+            new CommandEntry('1', "Vrienden inzien"),
+            new CommandEntry('2', "Vriend verzoek sturen"),
+            new CommandEntry('3', "Vriend verwijderen")
+        );
+        switch (input)
         {
-            case "0":
+            case '0':
                 _state = ClientState.GeneralSelect;
                 break;
-            case "1":
+            case '1':
                 ViewFriends();
                 break;
-            case "2":
+            case '2':
                 AddFriend();
                 break;
-            case "3":
+            case '3':
                 RemoveFriend();
                 break;
         }
