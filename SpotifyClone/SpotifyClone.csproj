@@ -10,7 +10,32 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="NAudio" Version="2.3.0" />
+      <PackageReference Include="ManagedBass" Version="4.0.2" />
+    </ItemGroup>
+
+    <!-- Copy all songs next to the executable   -->
+    <ItemGroup>
+        <None Include="Songs\**\*.*">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
+    <!-- Copy libs to the root or target runtime folder -->
+    <ItemGroup>
+        <None Include="Libraries\libbass.so">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <TargetPath>libbass.so</TargetPath>
+        </None>
+
+        <None Include="Libraries\bass.dll">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <TargetPath>bass.dll</TargetPath>
+        </None>
+
+        <None Include="Libraries\libbass.dylib">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <TargetPath>libbass.dylib</TargetPath>
+        </None>
     </ItemGroup>
 
 </Project>

@@ -2,34 +2,70 @@ namespace SpotifyClone.Entities;
 
 public class Song
 {
-    private readonly static List<Song> _songs =
-        [
-            new("Bohemian Rhapsody", [new Artist("Queen")], 355, DateOnly.Parse("1975-10-31")),
-            new("Stairway to Heaven", [new Artist("Led Zeppelin")], 482, DateOnly.Parse("1971-11-08")),
-            new("Hotel California", [new Artist("Eagles")], 390, DateOnly.Parse("1976-12-08")),
-        ];
+    private static readonly List<Song> Songs =
+    [
+        new("Cartoon", "cartoon.mp3",
+            new DateOnly(2025, 06, 11), Album.GetAllAlbums()[0],
+            [Artist.GetAllArtists()[0]]),
+        
+        new("Hellcat", "hellcat.mp3",
+            new DateOnly(2025, 06, 11), Album.GetAllAlbums()[0],
+            [Artist.GetAllArtists()[0]]),
+        
+        new("Hello", "hello.mp3",
+            new DateOnly(2025, 06, 11), Album.GetAllAlbums()[0],
+            [Artist.GetAllArtists()[0]]),
+        
+        
+        new("Frank Sinatra vs Freddie Mercury", "frankvsfreddie.mp3",
+            new DateOnly(2025, 06, 11), Album.GetAllAlbums()[1],
+            [Artist.GetAllArtists()[1]]),
+        
+        new("Michael Jackson vs Elvis Presley", "michaelvselvis.mp3",
+            new DateOnly(2025, 06, 11), Album.GetAllAlbums()[1],
+            [Artist.GetAllArtists()[1]]),
+        
+        new("Mr Beast vs Squid Game", "mrvssquid.mp3",
+            new DateOnly(2025, 06, 11), Album.GetAllAlbums()[1],
+            [Artist.GetAllArtists()[1]]),
+        
+        
+        new("Monkeys spinning monkeys", "monkeys.mp3",
+            new DateOnly(2025, 06, 11), Album.GetAllAlbums()[2],
+            [Artist.GetAllArtists()[2]]),
+        
+        new("Nyan cat", "nyan.mp3",
+            new DateOnly(2025, 06, 11), Album.GetAllAlbums()[2],
+            [Artist.GetAllArtists()[3]]),
+        
+        new("Pen pineapple apple pen", "pen.mp3",
+            new DateOnly(2025, 06, 11), Album.GetAllAlbums()[2],
+                [Artist.GetAllArtists()[4]]),
+    ];
 
     public string Name { get; private set; }
-    public double Duration { get; private set; }
+    public string FileName { get; private set; }
     public DateOnly Releasedate { get; private set; }
+    public Album Album { get; private set; }
     public List<Artist> Artists { get; private set; }
 
-    public Song(string name, List<Artist> artists, double duration, DateOnly releasedate)
+    public Song(string name, string fileName, DateOnly releasedate, Album album, List<Artist> artists)
     {
         Name = name;
-        Artists = artists;
-        Duration = duration;
+        FileName = fileName;
         Releasedate = releasedate;
+        Album = album;
+        Artists = artists;
     }
 
     public static List<Song> GetAllSongs()
     {
-        return _songs;
+        return Songs;
     }
 
 
     public override string ToString()
     {
-        return Name + " - " + string.Join(", ", Artists) + " - " + Duration + " - " + Releasedate;
+        return Name + " - " + Album.Name + " - " + string.Join(", ", Artists) + " - " + Releasedate;
     }
 }

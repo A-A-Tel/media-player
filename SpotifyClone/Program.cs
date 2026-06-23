@@ -1,11 +1,5 @@
-using SpotifyClone.Entities;
-namespace SpotifyClone;
+using SpotifyClone;
 
-public class Program
-{
-    public static void Main(string[] args)
-    {
-        Client client = new();
-        client.Start();
-    }
-}
+Client client = new();
+client.Start();
+
