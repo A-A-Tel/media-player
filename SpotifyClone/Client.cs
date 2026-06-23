@@ -33,9 +33,15 @@ public class Client
         _musicPlayer.PlaySong(song);
     }
 
+    private void AddSongToQueue()
+    {
+        Song song = SongSelectMenu();
+        _musicPlayer.AppendQueue(song);
+    }
+
     private void SkipSong()
     {
-        throw new NotImplementedException();
+        _musicPlayer.SkipSong();
     }
 
     private void TogglePause()
@@ -150,6 +156,8 @@ public class Client
         char input = Input(
             new CommandEntry('a', "Speel nummer af"),
             new CommandEntry('s', "Stop met afspelen"),
+            new CommandEntry('o', "Nummer overslaan"),
+            new CommandEntry('w', "Nummer in wachtrij zetten"),
             new CommandEntry('c', "Laat alle artiesten zien"),
             new CommandEntry('v', "Laat alle vrienden zien"),
             new CommandEntry('l', "Laat alle albums zien"),
@@ -163,6 +171,12 @@ public class Client
                 break;
             case 's':
                 StopPlayer();
+                break;
+            case 'o':
+                SkipSong();
+                break;
+            case 'w':
+                AddSongToQueue();
                 break;
             case 'c':
                 ArtistSelectMenu();

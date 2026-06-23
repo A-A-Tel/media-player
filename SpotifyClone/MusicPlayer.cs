@@ -10,6 +10,8 @@ public class MusicPlayer
     public ImmutableList<Song> SongQueue => _songQueue.ToImmutableList();
  
     private int _stream;
+    private SyncProcedure? _endSyncProcedure;
+    
     private readonly Queue<Song> _songQueue = [];
 
     public MusicPlayer()
@@ -23,25 +25,26 @@ public class MusicPlayer
     
     public void PlaySong(Song song)
     {
-        if (_stream != 0)
-        {
-            Bass.ChannelStop(_stream);
-            Bass.StreamFree(_stream);
-            _stream = 0;
-        }
+        StopPlaying();
 
         string songPath = Path.Combine("Songs/", song.FileName);
-        _stream = Bass.CreateStream(songPath);
+        _stream = Bass.CreateStream(songPath, Flags: BassFlags.AutoFree);
 
         if (_stream != 0)
         {
             Bass.ChannelPlay(_stream);
+            _endSyncProcedure = OnSongEnd;
+            Bass.ChannelSetSync(_stream, SyncFlags.End, 0, _endSyncProcedure);
         }
     }
 
-    public void AppendQueue(IEnumerable<Song> songs)
+    public void AppendQueue(params IEnumerable<Song> songs)
     {
-        throw new NotImplementedException();
+        foreach (Song song in songs)
+        {
+            _songQueue.Enqueue(song);
+        }
+        if (_stream == 0) SkipSong();
     }
 
     public void ClearQueue()
@@ -54,18 +57,29 @@ public class MusicPlayer
         if (_stream != 0)
         {
             Bass.ChannelStop(_stream);
-            Bass.StreamFree(_stream);
             _stream = 0;
         }
     }
 
     public void SkipSong()
     {
-        throw new NotImplementedException();
+        if (_songQueue.Count > 0)
+        {
+            PlaySong(_songQueue.Dequeue());
+        }
+        else
+        {
+            StopPlaying();
+        }
     }
 
     public void TogglePause()
     {
         throw new NotImplementedException();
+    }
+
+    private void OnSongEnd(int handle, int channel, int data, IntPtr user)
+    {
+        SkipSong();
     }
 }
