@@ -204,7 +204,8 @@ public class Client
             new CommandEntry('0', "Terug"),
             new CommandEntry('1', "Vrienden inzien"),
             new CommandEntry('2', "Vriend verzoek sturen"),
-            new CommandEntry('3', "Vriend verwijderen")
+            new CommandEntry('3', "Vriend verwijderen"),
+            new CommandEntry('4', "Speellijsten van vriend bekijken")
         );
         switch (input)
         {
@@ -219,6 +220,9 @@ public class Client
                 break;
             case '3':
                 RemoveFriend();
+                break;
+                case '4':
+                ViewFriendPlaylists();
                 break;
         }
     }
