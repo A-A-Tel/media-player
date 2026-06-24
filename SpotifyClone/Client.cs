@@ -130,6 +130,20 @@ public class Client
          
         
     }
+    private void ViewFriendPlaylists()
+    {
+        Console.WriteLine("Kies een vriend:");
+
+        User friend = Input(_mainUser.Friends);
+
+        Console.WriteLine("Speellijsten van " + friend.Name + ":");
+
+        Playlist playlist = Input(friend.Playlists);
+
+        _mainUser.Playlists.Add(playlist);
+
+        Console.WriteLine("Speellijst toegevoegd aan jouw speellijsten.");
+    }
 
     #endregion
 
