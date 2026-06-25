@@ -19,6 +19,9 @@ public class Client
                 case ClientState.GeneralSelect:
                     GeneralSelect();
                     break;
+                case ClientState.PlaylistSelect:
+                    PlaylistSelect();
+                    break;
                 case ClientState.FriendSelect:
                     FriendSelect();
                     break;
@@ -118,17 +121,32 @@ public class Client
                 Console.WriteLine(album.Name);
             }
         }
-
-
     }
-
-
+    
     private void ViewAlbumSongs()
     {
         Album selectedAlbum = AlbumSelectMenu();
         Console.WriteLine("Albums:" + selectedAlbum.Name);
-         
-        
+    }
+
+    private void ClearQueue()
+    {
+        _musicPlayer.ClearQueue();
+    }
+    
+    private void PlayPlaylist()
+    {
+        List<Playlist> playlists = _mainUser.Playlists;
+        Console.WriteLine("Kies een speellijst om af te spelen!");
+        if (playlists.Count == 0)
+        {
+            Console.WriteLine("Nog geen speellijsten!");
+            return;
+        }
+        Playlist chosen = Input(playlists);
+        _musicPlayer.ClearQueue();
+        _musicPlayer.AppendQueue(chosen.Songs);
+        _musicPlayer.SkipSong();
     }
 
     #endregion
@@ -158,6 +176,7 @@ public class Client
             new CommandEntry('s', "Stop met afspelen"),
             new CommandEntry('o', "Nummer overslaan"),
             new CommandEntry('w', "Nummer in wachtrij zetten"),
+            new CommandEntry('p', "Laat afspeellijsten zien"),
             new CommandEntry('c', "Laat alle artiesten zien"),
             new CommandEntry('v', "Laat alle vrienden zien"),
             new CommandEntry('l', "Laat alle albums zien"),
@@ -177,6 +196,9 @@ public class Client
                 break;
             case 'w':
                 AddSongToQueue();
+                break;
+            case 'p':
+                _state = ClientState.PlaylistSelect;
                 break;
             case 'c':
                 ArtistSelectMenu();
@@ -250,11 +272,15 @@ public class Client
         Console.WriteLine("Albums:");
         return Input(Album.GetAllAlbums());
     }
-
-    private Playlist PlaylistSelectMenu()
+    
+    private void PlaylistSelect()
     {
-        throw new NotImplementedException();
+        ClearQueue();
+        StopPlayer();
+        PlayPlaylist();
     }
+    
+
 
     #endregion
 

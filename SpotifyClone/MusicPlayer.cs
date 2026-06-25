@@ -49,7 +49,7 @@ public class MusicPlayer
 
     public void ClearQueue()
     {
-        throw new NotImplementedException();
+        _songQueue.Clear();
     }
 
     public void StopPlaying()
