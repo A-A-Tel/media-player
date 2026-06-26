@@ -125,13 +125,65 @@ public class Client
 
     }
 
+    private void CreatePlaylist()
+    {
+        Console.WriteLine("Vul een naam in voor de afspeellijst..");
+        string input = Console.ReadLine() ?? throw new NullReferenceException();
+        Playlist playlist = new(input);
+        _mainUser.Playlists.Add(playlist);
+        ModifyPlaylist(playlist);
+    }
+
+    private void EditPlaylist()
+    {
+        Playlist playlist = Input(_mainUser.Playlists);
+        ModifyPlaylist(playlist);
+    }
+
+    private void ModifyPlaylist(Playlist playlist)
+    {
+        char input = '.';
+        while (input != 'o')
+        {
+            Console.WriteLine(playlist.Name + '\n' + string.Join("\n", playlist.Songs) + '\n');
+            
+            input = Input(
+                new CommandEntry('n', "Naam veranderen"),
+                new CommandEntry('t', "Nummer toevoegen"),
+                new CommandEntry('v', "Nummer verwijderen"),
+                new CommandEntry('o', "Speellijst opslaan")
+            );
+
+            switch (input)
+            {
+                case 'n':
+                    Console.WriteLine("Vul een naam in voor de afspeellijst..");
+                    string newName = Console.ReadLine() ?? throw new NullReferenceException();
+                    playlist.Rename(newName);
+                    break;
+                case 't':
+                    Song newSong = Input(Song.GetAllSongs());
+                    playlist.Add(newSong);
+                    break;
+                case 'v':
+                    Song song = Input(playlist.Songs);
+                    playlist.Remove(song);
+                    break;
+            }
+        }
+    }
+
+    private void RemovePlaylist()
+    {
+        Console.WriteLine("Selecteer een afspeellijst...");
+        _mainUser.Playlists.Remove(Input(_mainUser.Playlists));
+    }
+
 
     private void ViewAlbumSongs()
     {
         Album selectedAlbum = AlbumSelectMenu();
         Console.WriteLine("Albums:" + selectedAlbum.Name);
-         
-        
     }
 
     #endregion
@@ -164,6 +216,7 @@ public class Client
             new CommandEntry('c', "Laat alle artiesten zien"),
             new CommandEntry('v', "Laat alle vrienden zien"),
             new CommandEntry('l', "Laat alle albums zien"),
+            new CommandEntry('p', "Beheer afspeellijsten"),
             new CommandEntry('u', "Uitloggen"),
             new CommandEntry('j', "Laat albums van geselecteerd artiest zien")
         );
@@ -190,6 +243,9 @@ public class Client
             case 'u':
                 Console.WriteLine("Uitgelogd!");
                 _state = ClientState.MainUserSelectState;
+                break;
+            case 'p':
+                _state = ClientState.PlaylistState;
                 break;
             case 'l':
                 AlbumSelectMenu();
@@ -228,7 +284,27 @@ public class Client
 
     private void PlaylistSelect()
     {
-        
+        char input = Input(
+            new CommandEntry('t', "Terug"),
+            new CommandEntry('m', "Speellijst maken"),
+            new CommandEntry('b', "Speellijst bewerken"),
+            new CommandEntry('v', "Speellijst verwijderen")
+        );
+        switch (input)
+        {
+            case 't':
+                _state = ClientState.GeneralState;
+                break;
+            case 'm':
+                CreatePlaylist();
+                break;
+            case 'b':
+                EditPlaylist();
+                break;
+            case 'v':
+                RemovePlaylist();
+                break;
+        }
     }
 
     #endregion
@@ -289,7 +365,7 @@ public class Client
         return input;
     }
 
-    private T Input<T>(List<T> items)
+    private T Input<T>(IReadOnlyList<T> items)
         where T : class
     {
         for (int i = 0; i < items.Count; i++)
