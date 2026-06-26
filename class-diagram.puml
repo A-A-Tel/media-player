@@ -25,7 +25,9 @@ namespace MediaPlayer {
         - _audioReader: AudioFileReader
         - _currentSong: Song
         - _songQueue: Queue<Song>
+        - _shuffle: bool
         + CurrentSong: _currentSong
+        + Shuffle: _shuffle
         + SongQueue: ImmutableList<_songQueue>
         
         + PlaySong(song: Song): void
