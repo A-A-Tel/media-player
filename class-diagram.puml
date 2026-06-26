@@ -4,10 +4,11 @@ left to right direction
 namespace MediaPlayer {
 
     enum ClientState {
-        MainUserSelect
-        GeneralSelect
-        FriendSelect
-        Stopped
+        MainUserSelectState
+        GeneralState
+        FriendState
+        PlaylistState
+        StoppedState
     }
     
     record CommandEntry {
@@ -33,7 +34,7 @@ namespace MediaPlayer {
         
     class Client {
         - _mainUser: User
-        _ _player: MusicPlayer
+        - _player: MusicPlayer
         - _state: ClientState
         
         + Start()
@@ -45,16 +46,19 @@ namespace MediaPlayer {
         - ClearQueue(): void
         - ViewQueue(): void
         - SkipSong(): void
-        - TogglePause(): void
         - StopPlayer(): void
         - AddFriend(): void
         - ViewFriends(): void
         - RemoveFriend(): void
+        - CreatePlaylist(): void
+        - EditPlaylist(): void
+        - RemovePlaylist(): void
         
         ' state
         - MainUserSelect(): void
         - GeneralSelect(): void
-        - FriendSelect():  void
+        - FriendSelect(): void
+        - PlaylistSelect(): void
         
         ' menus
         - SongSelectMenu(): Song
