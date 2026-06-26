@@ -7,16 +7,16 @@ public class Playlist
 
     public void Add(Song song)
     {
-        throw new NotImplementedException();
+        Songs.Add(song);
     }
 
     public void Remove(Song song)
     {
-        throw new NotImplementedException();
+        Songs.Remove(song);
     }
 
     public void Rename(string newName)
     {
-        throw new NotImplementedException();
+        Name = newName;
     }
 }
