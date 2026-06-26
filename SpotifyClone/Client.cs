@@ -121,7 +121,21 @@ public class Client
 
 
     }
+    private void MergePlaylists()
+    {
+        Console.WriteLine("Kies eerste playlist:");
+        Playlist playlist1 = PlaylistSelectMenu();
 
+        Console.WriteLine("Kies tweede playlist:");
+        Playlist playlist2 = PlaylistSelectMenu();
+
+        foreach (Song song in playlist2.Songs)
+        {
+            playlist1.Add(song);
+        }
+
+        Console.WriteLine("Playlists samengevoegd!");
+    }
 
     private void ViewAlbumSongs()
     {
