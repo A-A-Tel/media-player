@@ -141,6 +141,7 @@ public class Client
         if (playlists.Count == 0)
         {
             Console.WriteLine("Nog geen speellijsten!");
+            _state = ClientState.GeneralSelect;
             return;
         }
         Playlist chosen = Input(playlists);
