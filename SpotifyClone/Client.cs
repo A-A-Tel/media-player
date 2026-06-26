@@ -183,6 +183,21 @@ public class Client
         Console.WriteLine("Selecteer een afspeellijst...");
         _mainUser.Playlists.Remove(Input(_mainUser.Playlists));
     }
+    
+    private void PlayPlaylist()
+    {
+        List<Playlist> playlists = _mainUser.Playlists;
+        Console.WriteLine("Kies een speellijst om af te spelen!");
+        if (playlists.Count == 0)
+        {
+            Console.WriteLine("Nog geen speellijsten!");
+            return;
+        }
+        Playlist chosen = Input(playlists);
+        _musicPlayer.ClearQueue();
+        _musicPlayer.AppendQueue(chosen.Songs);
+        _musicPlayer.SkipSong();
+    }
 
 
     private void ViewAlbumSongs()
@@ -195,6 +210,7 @@ public class Client
 
     #region State
 
+    
     private void MainUserSelect()
     {
         Console.WriteLine("Kies de hoofdgebruiker!");
@@ -302,6 +318,7 @@ public class Client
     {
         char input = Input(
             new CommandEntry('t', "Terug"),
+            new CommandEntry('a', "Speellijst afspelen"),
             new CommandEntry('m', "Speellijst maken"),
             new CommandEntry('b', "Speellijst bewerken"),
             new CommandEntry('v', "Speellijst verwijderen")
@@ -310,6 +327,9 @@ public class Client
         {
             case 't':
                 _state = ClientState.GeneralState;
+                break;
+            case 'a':
+                PlayPlaylist();
                 break;
             case 'm':
                 CreatePlaylist();
@@ -338,6 +358,7 @@ public class Client
         Console.WriteLine("Artiesten:");
         return Input(Artist.GetAllArtists());
     }
+    
 
     private User UserSelectMenu()
     {

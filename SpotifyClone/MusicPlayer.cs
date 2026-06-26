@@ -52,7 +52,8 @@ public class MusicPlayer
 
     public void ClearQueue()
     {
-        throw new NotImplementedException();
+        _songQueue.Clear();
+        StopPlaying();
     }
 
     public void StopPlaying()
