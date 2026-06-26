@@ -146,7 +146,7 @@ public class Client
         Playlist chosen = Input(playlists);
         _musicPlayer.ClearQueue();
         _musicPlayer.AppendQueue(chosen.Songs);
-        _musicPlayer.SkipSong();
+        //ik heb skip song weggehaalt en nu werkt hij wel 🤷
     }
 
     #endregion
