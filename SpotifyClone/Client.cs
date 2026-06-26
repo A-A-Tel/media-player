@@ -51,6 +51,11 @@ public class Client
     {
         throw new NotImplementedException();
     }
+
+    private void ToggleShuffle()
+    {
+        _musicPlayer.ToggleShuffle();
+    }
     
     private void AddFriend()
     {
@@ -205,9 +210,16 @@ public class Client
 
         if (_musicPlayer.CurrentSong != null)
         {
-            Console.WriteLine("We spelen nu:" + _musicPlayer.CurrentSong.Name);
+            Console.WriteLine("We spelen nu: " + _musicPlayer.CurrentSong.Name);
         }
 
+        if (_musicPlayer.SongQueue.Count != 0)
+        {
+            Console.WriteLine("\nWachtrij:");
+            Console.WriteLine(string.Join("\n", _musicPlayer.SongQueue));
+        }
+
+        Console.WriteLine("\nOpties:");
         char input = Input(
             new CommandEntry('a', "Speel nummer af"),
             new CommandEntry('s', "Stop met afspelen"),
@@ -216,6 +228,7 @@ public class Client
             new CommandEntry('c', "Laat alle artiesten zien"),
             new CommandEntry('v', "Laat alle vrienden zien"),
             new CommandEntry('l', "Laat alle albums zien"),
+            new CommandEntry('m', "Shuffle " + (_musicPlayer.Shuffle ? "uitzetten" : "aanzetten")),
             new CommandEntry('p', "Beheer afspeellijsten"),
             new CommandEntry('u', "Uitloggen"),
             new CommandEntry('j', "Laat albums van geselecteerd artiest zien")
@@ -252,6 +265,9 @@ public class Client
                 break;
             case 'j':
                 ViewArtistAlbums();
+                break;
+            case 'm':
+                ToggleShuffle();
                 break;
 
         }
