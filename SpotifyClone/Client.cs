@@ -175,6 +175,7 @@ public class Client
             new CommandEntry('c', "Laat alle artiesten zien"),
             new CommandEntry('v', "Laat alle vrienden zien"),
             new CommandEntry('l', "Laat alle albums zien"),
+            new CommandEntry('m', "Speellijsten samenvoegen"),
             new CommandEntry('u', "Uitloggen"),
             new CommandEntry('j', "Laat albums van geselecteerd artiest zien")
         );
@@ -207,6 +208,9 @@ public class Client
                 break;
             case 'j':
                 ViewArtistAlbums();
+                break;
+            case 'm':
+                MergePlaylists();
                 break;
 
         }
@@ -267,7 +271,8 @@ public class Client
 
     private Playlist PlaylistSelectMenu()
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Speellijsten:");
+        return Input(_mainUser.Playlists);
     }
 
     #endregion
