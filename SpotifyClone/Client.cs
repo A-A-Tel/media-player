@@ -185,7 +185,7 @@ public class Client
         Album selectedAlbum = AlbumSelectMenu();
         Console.WriteLine("Albums:" + selectedAlbum.Name);
     }
-    private void ViewFriendPlaylists()
+    private void AddFriendPlaylists()
     {
         Console.WriteLine("Kies een vriend:");
 
