@@ -190,6 +190,20 @@ public class Client
         Album selectedAlbum = AlbumSelectMenu();
         Console.WriteLine("Albums:" + selectedAlbum.Name);
     }
+    private void AddFriendPlaylists()
+    {
+        Console.WriteLine("Kies een vriend:");
+
+        User friend = Input(_mainUser.Friends);
+
+        Console.WriteLine("Speellijsten van " + friend.Name + ":");
+
+        Playlist playlist = Input(friend.Playlists);
+
+        _mainUser.Playlists.Add(playlist);
+
+        Console.WriteLine("Speellijst toegevoegd aan jouw speellijsten.");
+    }
 
     #endregion
 
@@ -279,7 +293,8 @@ public class Client
             new CommandEntry('0', "Terug"),
             new CommandEntry('1', "Vrienden inzien"),
             new CommandEntry('2', "Vriend verzoek sturen"),
-            new CommandEntry('3', "Vriend verwijderen")
+            new CommandEntry('3', "Vriend verwijderen"),
+            new CommandEntry('4', "Speellijsten van een vriend toevoegen")
         );
         switch (input)
         {
@@ -294,6 +309,9 @@ public class Client
                 break;
             case '3':
                 RemoveFriend();
+                break;
+                case '4':
+                AddFriendPlaylists();
                 break;
         }
     }

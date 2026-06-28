@@ -58,6 +58,7 @@ namespace MediaPlayer {
         - StopPlayer(): void
         - AddFriend(): void
         - ViewFriends(): void
+        - AddFriendPlaylists() void
         - RemoveFriend(): void
         - CreatePlaylist(): void
         - EditPlaylist(): void
