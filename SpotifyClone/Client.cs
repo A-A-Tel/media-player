@@ -185,7 +185,7 @@ public class Client
         Album selectedAlbum = AlbumSelectMenu();
         Console.WriteLine("Albums:" + selectedAlbum.Name);
     }
-    private void ViewFriendPlaylists()
+    private void AddFriendPlaylists()
     {
         Console.WriteLine("Kies een vriend:");
 
@@ -278,7 +278,7 @@ public class Client
             new CommandEntry('1', "Vrienden inzien"),
             new CommandEntry('2', "Vriend verzoek sturen"),
             new CommandEntry('3', "Vriend verwijderen"),
-            new CommandEntry('4', "Speellijsten van vriend bekijken")
+            new CommandEntry('4', "Speellijsten van een vriend toevoegen")
         );
         switch (input)
         {
@@ -295,7 +295,7 @@ public class Client
                 RemoveFriend();
                 break;
                 case '4':
-                ViewFriendPlaylists();
+                AddFriendPlaylists();
                 break;
         }
     }

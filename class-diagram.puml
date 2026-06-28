@@ -49,7 +49,7 @@ namespace MediaPlayer {
         - StopPlayer(): void
         - AddFriend(): void
         - ViewFriends(): void
-        - ViewFriendPlaylists() void
+        - AddFriendPlaylists() void
         - RemoveFriend(): void
         - CreatePlaylist(): void
         - EditPlaylist(): void
