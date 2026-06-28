@@ -129,61 +129,21 @@ public class Client
 
 
     }
-
-    private void CreatePlaylist()
+    private void MergePlaylists()
     {
-        Console.WriteLine("Vul een naam in voor de afspeellijst..");
-        string input = Console.ReadLine() ?? throw new NullReferenceException();
-        Playlist playlist = new(input);
-        _mainUser.Playlists.Add(playlist);
-        ModifyPlaylist(playlist);
-    }
+        Console.WriteLine("Kies eerste playlist:");
+        Playlist playlist1 = PlaylistSelectMenu();
 
-    private void EditPlaylist()
-    {
-        Playlist playlist = Input(_mainUser.Playlists);
-        ModifyPlaylist(playlist);
-    }
+        Console.WriteLine("Kies tweede playlist:");
+        Playlist playlist2 = PlaylistSelectMenu();
 
-    private void ModifyPlaylist(Playlist playlist)
-    {
-        char input = '.';
-        while (input != 'o')
+        foreach (Song song in playlist2.Songs)
         {
-            Console.WriteLine(playlist.Name + '\n' + string.Join("\n", playlist.Songs) + '\n');
-            
-            input = Input(
-                new CommandEntry('n', "Naam veranderen"),
-                new CommandEntry('t', "Nummer toevoegen"),
-                new CommandEntry('v', "Nummer verwijderen"),
-                new CommandEntry('o', "Speellijst opslaan")
-            );
-
-            switch (input)
-            {
-                case 'n':
-                    Console.WriteLine("Vul een naam in voor de afspeellijst..");
-                    string newName = Console.ReadLine() ?? throw new NullReferenceException();
-                    playlist.Rename(newName);
-                    break;
-                case 't':
-                    Song newSong = Input(Song.GetAllSongs());
-                    playlist.Add(newSong);
-                    break;
-                case 'v':
-                    Song song = Input(playlist.Songs);
-                    playlist.Remove(song);
-                    break;
-            }
+            playlist1.Add(song);
         }
-    }
 
-    private void RemovePlaylist()
-    {
-        Console.WriteLine("Selecteer een afspeellijst...");
-        _mainUser.Playlists.Remove(Input(_mainUser.Playlists));
+        Console.WriteLine("Playlists samengevoegd!");
     }
-
 
     private void ViewAlbumSongs()
     {
@@ -228,8 +188,7 @@ public class Client
             new CommandEntry('c', "Laat alle artiesten zien"),
             new CommandEntry('v', "Laat alle vrienden zien"),
             new CommandEntry('l', "Laat alle albums zien"),
-            new CommandEntry('m', "Shuffle " + (_musicPlayer.Shuffle ? "uitzetten" : "aanzetten")),
-            new CommandEntry('p', "Beheer afspeellijsten"),
+            new CommandEntry('m', "Speellijsten samenvoegen"),
             new CommandEntry('u', "Uitloggen"),
             new CommandEntry('j', "Laat albums van geselecteerd artiest zien")
         );
@@ -267,7 +226,7 @@ public class Client
                 ViewArtistAlbums();
                 break;
             case 'm':
-                ToggleShuffle();
+                MergePlaylists();
                 break;
 
         }
@@ -353,7 +312,8 @@ public class Client
 
     private Playlist PlaylistSelectMenu()
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Speellijsten:");
+        return Input(_mainUser.Playlists);
     }
 
     #endregion
