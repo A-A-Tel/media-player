@@ -11,6 +11,7 @@ public class MusicPlayer
  
     private int _stream;
     private SyncProcedure? _endSyncProcedure;
+    public bool Shuffle { get; private set; }
     
     private readonly Queue<Song> _songQueue = [];
 
@@ -36,6 +37,8 @@ public class MusicPlayer
             _endSyncProcedure = OnSongEnd;
             Bass.ChannelSetSync(_stream, SyncFlags.End, 0, _endSyncProcedure);
         }
+
+        CurrentSong = song;
     }
 
     public void AppendQueue(params IEnumerable<Song> songs)
@@ -65,7 +68,15 @@ public class MusicPlayer
     {
         if (_songQueue.Count > 0)
         {
-            PlaySong(_songQueue.Dequeue());
+            if (Shuffle)
+            {
+                Random random = new();
+                PlaySong(_songQueue.DequeueRandom());
+            }
+            else
+            {
+                PlaySong(_songQueue.Dequeue());
+            }
         }
         else
         {
@@ -76,6 +87,11 @@ public class MusicPlayer
     public void TogglePause()
     {
         throw new NotImplementedException();
+    }
+
+    public void ToggleShuffle()
+    {
+        Shuffle = !Shuffle;
     }
 
     private void OnSongEnd(int handle, int channel, int data, IntPtr user)

@@ -2,8 +2,9 @@ namespace SpotifyClone;
 
 public enum ClientState
 {
-    MainUserSelect,
-    GeneralSelect,
-    FriendSelect,
-    Stopped
+    MainUserSelectState,
+    GeneralState,
+    FriendState,
+    Stopped,
+    PlaylistState
 }

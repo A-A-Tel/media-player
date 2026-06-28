@@ -6,21 +6,24 @@ public class Client
 {
     private readonly MusicPlayer _musicPlayer = new();
     private User _mainUser = User.GetAllUsers()[0]; // This is temporary
-    private ClientState _state = ClientState.MainUserSelect; // This should be MainUserSelect when that feature is ready
+    private ClientState _state = ClientState.MainUserSelectState; // This should be MainUserSelect when that feature is ready
 
     public void Start()
     {
         while (_state != ClientState.Stopped)
             switch (_state)
             {
-                case ClientState.MainUserSelect:
+                case ClientState.MainUserSelectState:
                     MainUserSelect();
                     break;
-                case ClientState.GeneralSelect:
+                case ClientState.GeneralState:
                     GeneralSelect();
                     break;
-                case ClientState.FriendSelect:
+                case ClientState.FriendState:
                     FriendSelect();
+                    break;
+                case ClientState.PlaylistState:
+                    PlaylistSelect();
                     break;
             }
     }
@@ -47,6 +50,11 @@ public class Client
     private void TogglePause()
     {
         throw new NotImplementedException();
+    }
+
+    private void ToggleShuffle()
+    {
+        _musicPlayer.ToggleShuffle();
     }
     
     private void AddFriend()
@@ -141,8 +149,6 @@ public class Client
     {
         Album selectedAlbum = AlbumSelectMenu();
         Console.WriteLine("Albums:" + selectedAlbum.Name);
-         
-        
     }
 
     #endregion
@@ -155,7 +161,7 @@ public class Client
 
         _mainUser = UserSelectMenu();
 
-        _state = ClientState.GeneralSelect;
+        _state = ClientState.GeneralState;
     }
 
     private void GeneralSelect()
@@ -164,9 +170,16 @@ public class Client
 
         if (_musicPlayer.CurrentSong != null)
         {
-            Console.WriteLine("We spelen nu:" + _musicPlayer.CurrentSong.Name);
+            Console.WriteLine("We spelen nu: " + _musicPlayer.CurrentSong.Name);
         }
 
+        if (_musicPlayer.SongQueue.Count != 0)
+        {
+            Console.WriteLine("\nWachtrij:");
+            Console.WriteLine(string.Join("\n", _musicPlayer.SongQueue));
+        }
+
+        Console.WriteLine("\nOpties:");
         char input = Input(
             new CommandEntry('a', "Speel nummer af"),
             new CommandEntry('s', "Stop met afspelen"),
@@ -197,11 +210,14 @@ public class Client
                 ArtistSelectMenu();
                 break;
             case 'v':
-                _state = ClientState.FriendSelect;
+                _state = ClientState.FriendState;
                 break;
             case 'u':
                 Console.WriteLine("Uitgelogd!");
-                _state = ClientState.MainUserSelect;
+                _state = ClientState.MainUserSelectState;
+                break;
+            case 'p':
+                _state = ClientState.PlaylistState;
                 break;
             case 'l':
                 AlbumSelectMenu();
@@ -227,7 +243,7 @@ public class Client
         switch (input)
         {
             case '0':
-                _state = ClientState.GeneralSelect;
+                _state = ClientState.GeneralState;
                 break;
             case '1':
                 ViewFriends();
@@ -237,6 +253,31 @@ public class Client
                 break;
             case '3':
                 RemoveFriend();
+                break;
+        }
+    }
+
+    private void PlaylistSelect()
+    {
+        char input = Input(
+            new CommandEntry('t', "Terug"),
+            new CommandEntry('m', "Speellijst maken"),
+            new CommandEntry('b', "Speellijst bewerken"),
+            new CommandEntry('v', "Speellijst verwijderen")
+        );
+        switch (input)
+        {
+            case 't':
+                _state = ClientState.GeneralState;
+                break;
+            case 'm':
+                CreatePlaylist();
+                break;
+            case 'b':
+                EditPlaylist();
+                break;
+            case 'v':
+                RemovePlaylist();
                 break;
         }
     }
@@ -300,7 +341,7 @@ public class Client
         return input;
     }
 
-    private T Input<T>(List<T> items)
+    private T Input<T>(IReadOnlyList<T> items)
         where T : class
     {
         for (int i = 0; i < items.Count; i++)

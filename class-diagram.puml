@@ -4,11 +4,16 @@ left to right direction
 namespace MediaPlayer {
 
     enum ClientState {
-        MainUserSelect
-        GeneralSelect
-        FriendSelect
-        Stopped
+        MainUserSelectState
+        GeneralState
+        FriendState
+        PlaylistState
+        StoppedState
     }
+    
+    class QueueExtensions <<static>> {
+            {static} + DequeueRandom<TQueueable>(this queue: Queue<TQueueable>) : TQueueable
+        }
     
     record CommandEntry {
         + Key: char
@@ -20,7 +25,9 @@ namespace MediaPlayer {
         - _audioReader: AudioFileReader
         - _currentSong: Song
         - _songQueue: Queue<Song>
+        - _shuffle: bool
         + CurrentSong: _currentSong
+        + Shuffle: _shuffle
         + SongQueue: ImmutableList<_songQueue>
         
         + PlaySong(song: Song): void
@@ -29,11 +36,12 @@ namespace MediaPlayer {
         + StopPlaying(): void
         + SkipSong(): void
         + TogglePause(): void
+        + ToggleShuffle(): void
     }
         
     class Client {
         - _mainUser: User
-        _ _player: MusicPlayer
+        - _player: MusicPlayer
         - _state: ClientState
         
         + Start()
@@ -42,19 +50,24 @@ namespace MediaPlayer {
         - PlaySong(): void
         - PlayPlaylist(): void
         - ViewCurrentSong(): void
+        - TogglePause(): void
+        - ToggleShuffle(): void
         - ClearQueue(): void
         - ViewQueue(): void
         - SkipSong(): void
-        - TogglePause(): void
         - StopPlayer(): void
         - AddFriend(): void
         - ViewFriends(): void
         - RemoveFriend(): void
+        - CreatePlaylist(): void
+        - EditPlaylist(): void
+        - RemovePlaylist(): void
         
         ' state
         - MainUserSelect(): void
         - GeneralSelect(): void
-        - FriendSelect():  void
+        - FriendSelect(): void
+        - PlaylistSelect(): void
         
         ' menus
         - SongSelectMenu(): Song
@@ -131,6 +144,7 @@ namespace MediaPlayer {
             + GetAllArtists(): List<Artists> {static}
         }
     }
+    
 }
 
 Client --> MusicPlayer : _player
